@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { pxToRem } from '@/helpers/pxToRem.js'
+import { pxToRem } from '@/helpers/pxToRem'
 
 import BaseButton from '@base/BaseButton.vue'
 import BaseInput from '@base/BaseInput.vue'

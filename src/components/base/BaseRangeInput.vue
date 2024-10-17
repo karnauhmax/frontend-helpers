@@ -1,26 +1,18 @@
 <template>
   <label>
-    <input
-      :max="maxValue"
-      :min="minValue"
-      :step="stepValue"
-      type="range"
-      v-model.lazy.number="model"
-    />
+    <input :max="maxValue" :min="minValue" :step="stepValue" type="range" v-model.number="model" />
   </label>
 </template>
 
 <script setup lang="ts">
-const model = defineModel('modelValue')
+const model = defineModel()
 
 interface Props {
-  modelValue: string | number;
+  minValue: string | number
 
-  minValue: string | number;
+  maxValue: string | number
 
-  maxValue: string | number;
-
-  stepValue: string | number;
+  stepValue: string | number
 }
 
 withDefaults(defineProps<Props>(), {
@@ -28,8 +20,8 @@ withDefaults(defineProps<Props>(), {
 
   maxValue: '100',
 
-  stepValue: '1',
-});
+  stepValue: '1'
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <label class="grid gap-y-2 justify-items-start">
+  <label class="grid gap-y-2 justify-items-start" :for="id">
     <p v-if="label">{{ label }}</p>
 
     <input
@@ -7,15 +7,14 @@
         isValid ? 'border-text-secondary' : 'border-red-500/100'
       }`"
       v-model.lazy="model"
-      :value="modelValue"
+      :value="model"
       v-bind="$attrs"
+      :id="id"
     />
 
-    <span
-      v-if="units"
-      class="absolute text-sm text-text-secondary right-[10px] top-[57%]"
-      >{{ units }}</span
-    >
+    <span v-if="units" class="absolute text-sm text-text-secondary right-[10px] top-[57%]">{{
+      units
+    }}</span>
 
     <span v-if="!isValid && errorMessage" class="text-sm text-red-500">
       {{ errorMessage }}
@@ -24,29 +23,24 @@
 </template>
 
 <script setup lang="ts">
-const model = defineModel<string | number>();
+import { useId } from 'vue'
 
+const model = defineModel<string | number>()
+const id = useId()
 interface Props {
-  label?: string | boolean;
+  label?: string | boolean
 
-  isValid?: boolean;
+  isValid?: boolean
 
-  errorMessage?: string | boolean;
+  errorMessage?: string | boolean
 
-  units?: string | boolean;
+  units?: string | boolean
 }
 
 withDefaults(defineProps<Props>(), {
   label: false,
   isValid: true,
   errorMessage: false,
-  units: false,
-});
-
-const emits = defineEmits(['update:modelValue']);
-
-const inputHandler = (event: Event): void => {
-  const target = event.target as HTMLInputElement;
-  emits('update:modelValue', target.value);
-};
+  units: false
+})
 </script>

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="border border-text-secondary/10 p-4 grid grid-cols-2 gap-x-4 xl:gap-x-7 gap-y-4"
-  >
+  <div class="border border-text-secondary/10 p-4 grid grid-cols-2 gap-x-4 xl:gap-x-7 gap-y-4">
     <div class="grid gap-y-4">
       <p class="font-bold">{{ $t('clampCalculator.values') }}</p>
 
@@ -45,9 +43,7 @@
         />
       </div>
       <p
-        :class="`transition-opacity text-sm text-primary ${
-          wasCopied ? 'opacity-1' : 'opacity-0'
-        }`"
+        :class="`transition-opacity text-sm text-primary ${wasCopied ? 'opacity-1' : 'opacity-0'}`"
       >
         {{ $t('global.copied') }}
       </p>
@@ -56,29 +52,29 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { pxToRem } from '@/helpers/pxToRem.js';
-import i18n from '@/i18n';
-import BaseCopyBtn from '@base/BaseCopyBtn.vue';
-import BaseInput from '@base/BaseInput.vue';
+import { ref, computed } from 'vue'
+import { pxToRem } from '@/helpers/pxToRem'
+import i18n from '@/i18n'
+import BaseCopyBtn from '@base/BaseCopyBtn.vue'
+import BaseInput from '@base/BaseInput.vue'
 
-const { t } = i18n.global;
+const { t } = i18n.global
 
-const viewportMin = ref(360);
-const viewportMax = ref(1920);
+const viewportMin = ref(360)
+const viewportMax = ref(1920)
 
-const valuesMax = ref(24);
-const valuesMin = ref(16);
+const valuesMax = ref(24)
+const valuesMin = ref(16)
 
-const wasCopied = ref(false);
+const wasCopied = ref(false)
 
 const copyHandler = () => {
-  wasCopied.value = true;
+  wasCopied.value = true
 
   setTimeout(() => {
-    wasCopied.value = false;
-  }, 3000);
-};
+    wasCopied.value = false
+  }, 3000)
+}
 
 const viewportInputsConfig = ref([
   {
@@ -86,7 +82,7 @@ const viewportInputsConfig = ref([
     label: t('global.labels.min'),
     units: 'px',
     type: 'number',
-    value: viewportMin,
+    value: viewportMin
   },
 
   {
@@ -94,9 +90,9 @@ const viewportInputsConfig = ref([
     label: t('global.labels.max'),
     units: 'px',
     type: 'number',
-    value: viewportMax,
-  },
-]);
+    value: viewportMax
+  }
+])
 
 const valuesInputsConfig = ref([
   {
@@ -104,7 +100,7 @@ const valuesInputsConfig = ref([
     label: t('global.labels.min'),
     units: 'px',
     type: 'number',
-    value: valuesMin,
+    value: valuesMin
   },
 
   {
@@ -112,34 +108,29 @@ const valuesInputsConfig = ref([
     label: t('global.labels.max'),
     units: 'px',
     type: 'number',
-    value: valuesMax,
-  },
-]);
+    value: valuesMax
+  }
+])
 
 const variablePart = computed(() => {
-  return (
-    (valuesMax.value - valuesMin.value) /
-    (viewportMax.value - viewportMin.value)
-  );
-});
+  return (valuesMax.value - valuesMin.value) / (viewportMax.value - viewportMin.value)
+})
 
 const constant = computed(() => {
-  return parseFloat(
-    ((valuesMax.value - viewportMax.value * variablePart.value) / 16).toFixed(3)
-  );
-});
+  return parseFloat(((valuesMax.value - viewportMax.value * variablePart.value) / 16).toFixed(3))
+})
 
 const minPx = computed(() => {
-  return pxToRem(valuesMin.value);
-});
+  return pxToRem(valuesMin.value)
+})
 
 const maxPx = computed(() => {
-  return pxToRem(valuesMax.value);
-});
+  return pxToRem(valuesMax.value)
+})
 
 const calculatedClamp = computed(() => {
   return `clamp(${minPx.value}rem, ${
     constant.value ? `${constant.value}rem + ` : ''
-  } ${parseFloat((100 * variablePart.value).toFixed(2))}vw, ${maxPx.value}rem)`;
-});
+  } ${parseFloat((100 * variablePart.value).toFixed(2))}vw, ${maxPx.value}rem)`
+})
 </script>

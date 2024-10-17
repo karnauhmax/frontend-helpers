@@ -21,18 +21,18 @@
 </template>
 
 <script setup>
-import BaseInput from '@base/BaseInput.vue';
-import { pxToRem } from '@/helpers/pxToRem.js';
-import { remToPx } from '@/helpers/remToPx.js';
-import { ref } from 'vue';
-const pxValue = ref(16);
-const remValue = ref(1);
+import BaseInput from '@base/BaseInput.vue'
+import { pxToRem } from '@/helpers/pxToRem'
+import { remToPx } from '@/helpers/remToPx'
+import { ref } from 'vue'
+const pxValue = ref(16)
+const remValue = ref(1)
 
 const pxHandler = () => {
-  remValue.value = pxToRem(pxValue.value);
-};
+  remValue.value = pxToRem(pxValue.value)
+}
 
 const remHandler = () => {
-  pxValue.value = remToPx(remValue.value);
-};
+  pxValue.value = remToPx(remValue.value)
+}
 </script>
