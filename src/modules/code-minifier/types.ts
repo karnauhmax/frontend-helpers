@@ -1,6 +1,6 @@
 export const MINIFY_TYPES = {
   JS: {
-    title: 'Javascript',
+    title: 'JavaScript',
     value: 'JS'
   },
   CSS: {
@@ -24,9 +24,3 @@ export interface IMinifyOption {
   value: TMinifyValue.value
   checked: boolean
 }
-
-let test: string = 0
-
-test = '1'
-
-console.log(test)

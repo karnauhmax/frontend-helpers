@@ -56,13 +56,13 @@ const minifyJavaScript = (input: string): string => {
 
 const outputValue = ref('')
 const inputValue = ref('')
-const selectedOption = ref<TMinifyValue.title>('jsd')
+const selectedOption = ref<TMinifyValue['title']>(MINIFY_TYPES.JS.title)
 const showOutput = ref(false)
 
 const HANDLERS_MAP = {
-  [MINIFY_TYPES.JS]: minifyJavaScript,
-  [MINIFY_TYPES.CSS]: minifyCss,
-  [MINIFY_TYPES.HTML]: minifyHtml
+  [MINIFY_TYPES.JS.value]: minifyJavaScript,
+  [MINIFY_TYPES.CSS.value]: minifyCss,
+  [MINIFY_TYPES.HTML.value]: minifyHtml
 }
 
 const generateHandler = () => {

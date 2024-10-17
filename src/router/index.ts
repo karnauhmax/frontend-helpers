@@ -6,7 +6,7 @@ import i18n from '@/i18n'
 const { t } = i18n.global
 
 const HomeView = () => import('../views/HomeView.vue')
-const GridBuilder = () => import('../components/grid-builder/GridBuilder.vue')
+const GridBuilder = () => import('@/modules/grid-builder/GridBuilder.vue')
 const REMConverter = () => import('../components/rem-converter/REMConverter.vue')
 const ClampCalculator = () => import('../components/clamp-calculator/ClampCalculator.vue')
 const CodeMinifier = () => import('../components/minifier/CodeMinifier.vue')
