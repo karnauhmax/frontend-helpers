@@ -62,7 +62,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import BaseCheckbox from '@base/BaseCheckbox.vue'
 import BaseInput from '@base/BaseInput.vue'
 import BaseRadioButton from '@base/BaseRadioButton.vue'
@@ -70,25 +69,16 @@ import BaseResult from '@base/BaseResult.vue'
 
 import { useFontFaceGenerator } from './composables/useFontFaceGenerator'
 
-const { weights, styles, formats } = useFontFaceGenerator()
-
-const fileName = ref('Montserrat')
-const fontPath = ref('../fonts/')
-const selectedWeight = ref(400)
-const selectedStyle = ref('normal')
-const selectedFormats = ref(['woff2'])
-
-const result = computed(() => {
-  const result = `@font-face {
-    font-family: "${fileName.value}";
-    src: ${selectedFormats.value.map(generateSource).join('\n     ')}
-    font-weight: ${selectedWeight.value};
-    font-style: ${selectedStyle.value};
-  }`
-  return result
-})
-
-const checkIfDisabled = (value: string) => {
-  return selectedFormats.value.length === 1 && selectedFormats.value.includes(value)
-}
+const {
+  weights,
+  styles,
+  formats,
+  selectedFormats,
+  selectedWeight,
+  selectedStyle,
+  fontPath,
+  fileName,
+  result,
+  checkIfDisabled
+} = useFontFaceGenerator()
 </script>
