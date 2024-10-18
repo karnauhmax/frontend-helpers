@@ -28,32 +28,32 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
-import type { ICssPropertyItem } from './properties/properties.types';
+import { toRefs } from 'vue'
+import type { ICssPropertyItem } from './properties/properties.types'
 
-import TrashcanOutline from 'vue-material-design-icons/TrashcanOutline.vue';
-import BaseInput from '@base/BaseInput.vue';
+import TrashcanOutline from 'vue-material-design-icons/TrashcanOutline.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 
-const title = defineModel<string>('title', { required: true });
-const value = defineModel<string>('value', { required: true });
+const title = defineModel<string>('title', { required: true })
+const value = defineModel<string>('value', { required: true })
 
 const props = defineProps<{
-  title: string;
+  title: string
 
-  id: number;
+  id: number
 
-  property: ICssPropertyItem;
+  property: ICssPropertyItem
 
-  value: string;
-}>();
+  value: string
+}>()
 
-const { id, property } = toRefs(props);
+const { id, property } = toRefs(props)
 
-const emits = defineEmits(['onPropertyItemDelete']);
+const emits = defineEmits(['onPropertyItemDelete'])
 
 const deletePropertyItem = () => {
-  emits('onPropertyItemDelete', id.value, property.value);
-};
+  emits('onPropertyItemDelete', id.value, property.value)
+}
 </script>
 
 <style lang="scss" scoped></style>

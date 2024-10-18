@@ -37,12 +37,12 @@
           <p>{{ $t('global.output') }}</p>
         </div>
         <div class="relative">
-          <label  for="textarea">
-          <textarea
-            id="textarea"
-            class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[300px] transition focus:outline-none focus:border-primary p-4 custom-scrollbar"
-            v-model="outputValue"
-          />
+          <label for="textarea">
+            <textarea
+              id="textarea"
+              class="bg-dark border border-text-secondary/10 resize-none w-full min-h-[300px] transition focus:outline-none focus:border-primary p-4 custom-scrollbar"
+              v-model="outputValue"
+            />
           </label>
           <BaseCopyBtn class="top-4 right-4 absolute" :content-to-copy="outputValue" />
         </div>
@@ -55,9 +55,9 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStore } from '@stores/main-store.ts'
-import BaseButton from '@base/BaseButton.vue'
-import BaseCopyBtn from '@base/BaseCopyBtn.vue'
-import BaseRadioButton from '@base/BaseRadioButton.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseCopyBtn from '@/components/base/BaseCopyBtn.vue'
+import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
 
 const store = useStore()
 const { minifyCss, minifyHtml, minifyJavaScript } = store

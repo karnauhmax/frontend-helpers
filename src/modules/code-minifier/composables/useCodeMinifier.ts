@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, toValue } from 'vue'
 
 import { type IMinifyOption, type TMinifyValue, MINIFY_TYPES } from '@/modules/code-minifier/types'
 
@@ -54,36 +54,23 @@ const minifyJavaScript = (input: string): string => {
   return minifiedValue
 }
 
-const outputValue = ref('')
-const inputValue = ref('')
-const selectedOption = ref<TMinifyValue['title']>(MINIFY_TYPES.JS.title)
-const showOutput = ref(false)
-
-const HANDLERS_MAP = {
+const HANDLERS_MAP: Record<TMinifyValue['value'], (input: string) => string> = {
   [MINIFY_TYPES.JS.value]: minifyJavaScript,
   [MINIFY_TYPES.CSS.value]: minifyCss,
-  [MINIFY_TYPES.HTML.value]: minifyHtml
+  [MINIFY_TYPES.HTML.value]: minifyHtml,
+  [MINIFY_TYPES.SCSS.value]: minifyCss
 }
 
-const generateHandler = () => {
-  const selectedOptionValue = selectedOption.value
-  const inputValueValue = inputValue.value
+const generateMinifiedCode = (type: TMinifyValue['value'], input: string) => {
+  const inputValueValue = toValue(input)
 
-  const selectedHandler = HANDLERS_MAP[selectedOptionValue]
+  const selectedHandler = HANDLERS_MAP[type]
 
   if (!selectedHandler) return
 
-  outputValue.value = selectedHandler(inputValueValue)
-
-  showOutput.value = true
+  return selectedHandler(inputValueValue)
 }
 
-const updateHandler = (value) => {
-  selectedOption.value = value
-
-  outputValue.value = ''
-  inputValue.value = ''
-  showOutput.value = false
+export function useCodeMinifier() {
+  return { minifyOptions, generateMinifiedCode }
 }
-
-export function useCodeMinifier() {}

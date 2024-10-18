@@ -50,9 +50,9 @@
 import { computed, ref } from 'vue'
 import { pxToRem } from '@/helpers/pxToRem'
 
-import BaseButton from '@base/BaseButton.vue'
-import BaseInput from '@base/BaseInput.vue'
-import BaseRadioButton from '@base/BaseRadioButton.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
 import GridOutput from './GridOutput.vue'
 
 const generatedWidth = ref<string | number>(0)

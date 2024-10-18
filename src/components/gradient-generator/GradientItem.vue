@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import BaseInput from '@base/BaseInput.vue';
-defineProps({});
+import BaseInput from '@/components/base/BaseInput.vue'
+defineProps({})
 </script>
 
 <style lang="scss" scoped></style>

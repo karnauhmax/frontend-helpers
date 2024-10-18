@@ -51,45 +51,27 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useStore } from '@stores/main-store.ts'
-import BaseButton from '@base/BaseButton.vue'
-import BaseCopyBtn from '@base/BaseCopyBtn.vue'
-import BaseRadioButton from '@base/BaseRadioButton.vue'
-import { useCodeMinifier } from './composables/useCodeMinifier.js'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseCopyBtn from '@/components/base/BaseCopyBtn.vue'
+import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
+import { useCodeMinifier } from './composables/useCodeMinifier'
+import type { TMinifyValue } from './types'
 
-const { mi } = useCodeMinifier()
-
-// const store = useStore()
-// const { minifyCss, minifyHtml, minifyJavaScript } = store
-// const { minifyOptions } = storeToRefs(store)
+const { generateMinifiedCode, minifyOptions } = useCodeMinifier()
 
 const outputValue = ref('')
 const inputValue = ref('')
-const selectedOption = ref('js')
+const selectedOption = ref<TMinifyValue['value']>('JS')
 const showOutput = ref(false)
 
 const isButtonDisabled = computed(() => {
   return !inputValue.value
 })
 
-const HANDLERS_MAP = {
-  js: minifyJavaScript,
-  css: minifyCss,
-  html: minifyHtml
-}
-
 const generateHandler = () => {
-  const selectedOptionValue = selectedOption.value
-  const inputValueValue = inputValue.value
-
-  const selectedHandler = HANDLERS_MAP[selectedOptionValue]
-
-  if (!selectedHandler) return
-
-  outputValue.value = selectedHandler(inputValueValue)
+  outputValue.value = generateMinifiedCode(selectedOption.value, inputValue.value)
 
   showOutput.value = true
 }

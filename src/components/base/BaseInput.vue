@@ -6,7 +6,7 @@
       :class="`text-secondary w-full bg-dark border p-2 focus:outline-none focus:border2 focus:border-primary pr-8 ${
         isValid ? 'border-text-secondary' : 'border-red-500/100'
       }`"
-      v-model.lazy="model"
+      v-model="model"
       :value="model"
       v-bind="$attrs"
       :id="id"

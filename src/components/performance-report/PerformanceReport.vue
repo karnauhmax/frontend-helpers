@@ -42,10 +42,7 @@
 
         <div class="grid grid-cols-performance-metrics-layout gap-x-6 gap-y-8">
           <PerformanceReportMetric
-            v-for="[
-              ,
-              { id, title, description, displayValue, score },
-            ] in filteredMetrics"
+            v-for="[, { id, title, description, displayValue, score }] in filteredMetrics"
             :title="title"
             :display-value="displayValue"
             :score="score"
@@ -60,35 +57,35 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useStore } from '@/stores/main-store';
-import { storeToRefs } from 'pinia';
-import type { TPerformanceMetric } from './performance-report-types';
+import { computed, ref } from 'vue'
+import { useStore } from '@/stores/main-store'
+import { storeToRefs } from 'pinia'
+import type { TPerformanceMetric } from './performance-report-types'
 
-import BaseInput from '@base/BaseInput.vue';
-import BaseButton from '@base/BaseButton.vue';
-import BaseLoader from '@base/BaseLoader.vue';
-import BaseRadioButton from '@base/BaseRadioButton.vue';
-import PerformanceReportMetric from '@/components/performance-report/PerformanceReportMetric.vue';
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseLoader from '@/components/base/BaseLoader.vue'
+import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
+import PerformanceReportMetric from '@/components/performance-report/PerformanceReportMetric.vue'
 
-const store = useStore();
+const store = useStore()
 
-const { pageSpeedReport } = storeToRefs(store);
-const { generatePageSpeedReport } = store;
+const { pageSpeedReport } = storeToRefs(store)
+const { generatePageSpeedReport } = store
 
-const url = ref('https://alescalifetech.com/');
-const showReport = ref(false);
-const isLoading = ref(false);
-const deviceType = ref('mobile');
+const url = ref('https://alescalifetech.com/')
+const showReport = ref(false)
+const isLoading = ref(false)
+const deviceType = ref('mobile')
 
 const generateHandler = async (): Promise<void> => {
-  isLoading.value = true;
+  isLoading.value = true
 
-  await generatePageSpeedReport(url.value, deviceType.value);
+  await generatePageSpeedReport(url.value, deviceType.value)
 
-  showReport.value = true;
-  isLoading.value = false;
-};
+  showReport.value = true
+  isLoading.value = false
+}
 
 const METRICS_MAP = [
   'cumulative-layout-shift',
@@ -97,20 +94,16 @@ const METRICS_MAP = [
   'speed-index',
   'total-blocking-time',
   'first-input-delay',
-  'first-meaningful-paint',
-];
+  'first-meaningful-paint'
+]
 
-const pagespeedReportAudits = computed(() => pageSpeedReport.value?.audits);
+const pagespeedReportAudits = computed(() => pageSpeedReport.value?.audits)
 
 const filteredMetrics = computed<TPerformanceMetric[]>(() => {
-  const splitedMetrics: TPerformanceMetric[] = Object.entries(
-    pagespeedReportAudits.value
-  );
+  const splitedMetrics: TPerformanceMetric[] = Object.entries(pagespeedReportAudits.value)
 
-  return splitedMetrics.filter(([title]) => METRICS_MAP.includes(title));
-});
+  return splitedMetrics.filter(([title]) => METRICS_MAP.includes(title))
+})
 
-const performanceScore = computed(
-  () => pageSpeedReport.value?.categories.performance.score
-);
+const performanceScore = computed(() => pageSpeedReport.value?.categories.performance.score)
 </script>

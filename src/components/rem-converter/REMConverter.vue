@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import BaseInput from '@base/BaseInput.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 import { pxToRem } from '@/helpers/pxToRem'
 import { remToPx } from '@/helpers/remToPx'
 import { ref } from 'vue'

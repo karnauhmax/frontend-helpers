@@ -2,11 +2,7 @@
   <div class="grid gap-y-5">
     <h3 class="text-xl">{{ title }}</h3>
     <BaseSelect v-model="selectedCategory" :options="propertiesNames" />
-    <BaseButton
-      @click="addProperty"
-      class="max-w-[250px]"
-      label="Add property"
-    />
+    <BaseButton @click="addProperty" class="max-w-[250px]" label="Add property" />
 
     <template v-for="property in properties" :key="property.id">
       <TailwindConfigPropertyItem
@@ -25,37 +21,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { ICssProperty } from './properties/properties.types';
-import BaseSelect from '@base/BaseSelect.vue';
-import BaseButton from '@base/BaseButton.vue';
-import TailwindConfigPropertyItem from './TailwindConfigPropertyItem.vue';
+import { ref } from 'vue'
+import type { ICssProperty } from './properties/properties.types'
+import BaseSelect from '@/components/base/BaseSelect.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import TailwindConfigPropertyItem from './TailwindConfigPropertyItem.vue'
 
 const props = defineProps<{
-  properties: ICssProperty[];
+  properties: ICssProperty[]
 
-  propertiesNames: string[];
+  propertiesNames: string[]
 
-  title: string;
+  title: string
 
-  id: number;
-}>();
+  id: number
+}>()
 
-const selectedCategory = ref(props.propertiesNames[0]);
+const selectedCategory = ref(props.propertiesNames[0])
 
-const emits = defineEmits([
-  'onPropertyCreated',
-  'onPropertyItemDelete',
-  'onPropertyItemAdded',
-]);
+const emits = defineEmits(['onPropertyCreated', 'onPropertyItemDelete', 'onPropertyItemAdded'])
 
 const addProperty = () => {
-  emits('onPropertyCreated', selectedCategory.value);
-};
+  emits('onPropertyCreated', selectedCategory.value)
+}
 
 const deletePropertyItem = (itemId: number, property: ICssProperty) => {
-  emits('onPropertyItemDelete', itemId, property);
-};
+  emits('onPropertyItemDelete', itemId, property)
+}
 </script>
 
 <style lang="scss" scoped></style>

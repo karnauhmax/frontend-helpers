@@ -10,7 +10,7 @@
           :units="units"
           :type="type"
           :label="label"
-          v-model="valuesInputsConfig[index].value"
+          v-model.lazy="valuesInputsConfig[index].value"
         />
       </div>
     </div>
@@ -23,7 +23,7 @@
           :units="item.units"
           :type="item.type"
           :label="item.label"
-          v-model="item.value"
+          v-model.lazy="item.value"
         />
       </div>
     </div>
@@ -51,19 +51,28 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
 import i18n from '@/i18n'
 import BaseCopyBtn from '@/components/base/BaseCopyBtn.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
+import { useClampCalculator } from './composables/useClampCalculator'
 
 const { t } = i18n.global
 
 const viewportMin = ref(360)
+
 const viewportMax = ref(1920)
 
 const valuesMax = ref(24)
 const valuesMin = ref(16)
+
+const { calculatedClamp } = useClampCalculator({
+  viewportMin,
+  viewportMax,
+  valuesMin,
+  valuesMax
+})
 
 const wasCopied = ref(false)
 

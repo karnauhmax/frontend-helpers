@@ -62,12 +62,13 @@
 </template>
 
 <script setup lang="ts">
-import BaseCheckbox from '@base/BaseCheckbox.vue'
-import BaseInput from '@base/BaseInput.vue'
-import BaseRadioButton from '@base/BaseRadioButton.vue'
-import BaseResult from '@base/BaseResult.vue'
-
+import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
+import BaseResult from '@/components/base/BaseResult.vue'
 import { useFontFaceGenerator } from './composables/useFontFaceGenerator'
+
+// ???
 
 const {
   weights,

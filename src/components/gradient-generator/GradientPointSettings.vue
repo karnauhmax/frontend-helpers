@@ -14,32 +14,32 @@
 </template>
 
 <script setup>
-import BaseInput from '@base/BaseInput.vue';
+import BaseInput from '@/components/base/BaseInput.vue'
 
 const hexCode = defineModel('hex', {
   type: String,
-  required: true,
-});
+  required: true
+})
 
 const gradientColorR = defineModel('gradientColorR', {
   type: Number,
-  required: true,
-});
+  required: true
+})
 
 const gradientColorG = defineModel('gradientColorG', {
   type: Number,
-  required: true,
-});
+  required: true
+})
 
 const gradientColorB = defineModel('gradientColorB', {
   type: Number,
-  required: true,
-});
+  required: true
+})
 
 const gradientColorA = defineModel('gradientColorA', {
   type: Number,
-  required: true,
-});
+  required: true
+})
 </script>
 
 <style lang="scss" scoped></style>

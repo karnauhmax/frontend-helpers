@@ -34,12 +34,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { ITransformRule } from './transform-generator-types';
+import { computed, ref } from 'vue'
+import type { ITransformRule } from './transform-generator-types'
 
-import BaseInput from '@base/BaseInput.vue';
-import BaseRangeInput from '@base/BaseRangeInput.vue';
-import BaseResult from '@base/BaseResult.vue';
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseRangeInput from '@/components/base/BaseRangeInput.vue'
+import BaseResult from '@/components/base/BaseResult.vue'
 
 const cssRulesToChange = ref<ITransformRule[]>([
   {
@@ -50,7 +50,7 @@ const cssRulesToChange = ref<ITransformRule[]>([
     min: -200,
     max: 200,
     step: 1,
-    unit: 'px',
+    unit: 'px'
   },
 
   {
@@ -61,7 +61,7 @@ const cssRulesToChange = ref<ITransformRule[]>([
     min: -200,
     max: 200,
     step: 1,
-    unit: 'px',
+    unit: 'px'
   },
 
   {
@@ -72,7 +72,7 @@ const cssRulesToChange = ref<ITransformRule[]>([
     min: 0,
     max: 2,
     step: 0.01,
-    unit: '',
+    unit: ''
   },
 
   {
@@ -83,7 +83,7 @@ const cssRulesToChange = ref<ITransformRule[]>([
     min: -360,
     max: 360,
     step: 1,
-    unit: 'deg',
+    unit: 'deg'
   },
 
   {
@@ -94,44 +94,43 @@ const cssRulesToChange = ref<ITransformRule[]>([
     min: -360,
     max: 360,
     step: 1,
-    unit: 'deg',
-  },
-]);
+    unit: 'deg'
+  }
+])
 
 const newRuleHandler = (rule: ITransformRule) => {
   if (rule.cssValue === 'scale' && rule.value === 1) {
-    return null;
+    return null
   }
 
   if (rule.value) {
-    return `${rule.cssValue}(${rule.value}${rule.unit}) `;
+    return `${rule.cssValue}(${rule.value}${rule.unit}) `
   }
-};
+}
 
 const showResult = computed(() => {
- return cssRulesToChange.value.some((rule) => {
-   if (rule.cssValue === 'scale' && rule.value === 1) {
-     return false;
-   }
+  return cssRulesToChange.value.some((rule) => {
+    if (rule.cssValue === 'scale' && rule.value === 1) {
+      return false
+    }
 
-   return rule.value !== 0
- })
+    return rule.value !== 0
+  })
 })
-
 
 const dynamicStyles = computed(() => {
   const result = `
 
   ${cssRulesToChange.value.map(newRuleHandler).join('')}
 
-  `;
+  `
 
-  return result;
-});
+  return result
+})
 
 const output = computed(() => {
-  return `transform: ${dynamicStyles.value} ;`;
-});
+  return `transform: ${dynamicStyles.value} ;`
+})
 </script>
 
 <style lang="scss" scoped>
