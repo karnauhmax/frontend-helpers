@@ -17,7 +17,7 @@
       <div clas="overflow-hidden">
         <div
           class="resize-x overflow-hidden transition-[width] will-change-[width]"
-          ref="outputElement"
+          ref="outputElementRef"
         >
           <div class="grid gap-4 builder-grid border border-text-secondary/10 p-4 overflow-hidden">
             <div
@@ -33,28 +33,22 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
+import type { TUnit } from '@/types'
 
-const props = defineProps({
-  width: {
-    type: Number
-  },
+const props = defineProps<{
+  units: TUnit
+  width: number
+}>()
 
-  units: {
-    type: String
-  }
-})
-
-const outputElement = ref<HTMLDivElement | null>(null)
+const outputElementRef = ref<HTMLDivElement | null>(null)
 
 defineExpose({
-  outputElement
+  outputElementRef
 })
 
-const { units, width } = toRefs(props)
-
 const cardsWidth = computed(
-  () => `repeat(auto-fill, minmax(min(100%, ${width.value}${units.value}), 1fr))`
+  () => `repeat(auto-fill, minmax(min(100%, ${props.width}${props.units}), 1fr))`
 )
 
 const output = computed(() => {

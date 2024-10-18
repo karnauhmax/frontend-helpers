@@ -28,35 +28,20 @@
       </div>
     </div>
 
-    <div class="col-span-2 grid gap-y-2">
-      <span>{{ $t('global.output') }}</span>
-      <div
-        :class="`border transition px-2 py-2 relative pr-[30px] ${
-          wasCopied ? 'border-primary' : 'border-text-secondary'
-        }`"
-      >
-        <p>{{ calculatedClamp }}</p>
-        <BaseCopyBtn
-          :content-to-copy="calculatedClamp"
-          @copied="copyHandler"
-          class="absolute right-[10px] top-[10px]"
-        />
-      </div>
-      <p
-        :class="`transition-opacity text-sm text-primary ${wasCopied ? 'opacity-1' : 'opacity-0'}`"
-      >
-        {{ $t('global.copied') }}
+    <BaseResult class="col-span-2" size="sm" :content-to-copy="calculatedClamp">
+      <p class="self-center">
+        {{ calculatedClamp }}
       </p>
-    </div>
+    </BaseResult>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import i18n from '@/i18n'
-import BaseCopyBtn from '@/components/base/BaseCopyBtn.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import { useClampCalculator } from './composables/useClampCalculator'
+import BaseResult from '@/components/base/BaseResult.vue'
 
 const { t } = i18n.global
 
@@ -73,16 +58,6 @@ const { calculatedClamp } = useClampCalculator({
   valuesMin,
   valuesMax
 })
-
-const wasCopied = ref(false)
-
-const copyHandler = () => {
-  wasCopied.value = true
-
-  setTimeout(() => {
-    wasCopied.value = false
-  }, 3000)
-}
 
 const viewportInputsConfig = ref([
   {

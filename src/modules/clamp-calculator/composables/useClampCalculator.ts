@@ -8,6 +8,29 @@ interface IOptions {
   valuesMax: MaybeRefOrGetter<number>
 }
 
+/**
+ * Calculates clamp CSS function based on viewport and values min and max
+ *
+ * @param {IOptions} options - object with 4 properties:
+ *   - viewportMin: the minimum viewport width
+ *   - viewportMax: the maximum viewport width
+ *   - valuesMin: the minimum value
+ *   - valuesMax: the maximum value
+ *
+ * @returns {Object} an object with a single property `calculatedClamp`, which is a computed property
+ *   returning the calculated clamp function as a string.
+ *
+ * @example
+ * const { calculatedClamp } = useClampCalculator({
+ *   viewportMin: 360,
+ *   viewportMax: 1920,
+ *   valuesMin: 16,
+ *   valuesMax: 24,
+ * })
+ *
+ * console.log(calculatedClamp.value) // 'clamp(1rem, 0.0625rem + 4.166667vw, 1.5rem)'
+ */
+
 export function useClampCalculator(options: IOptions) {
   const { viewportMin, viewportMax, valuesMin, valuesMax } = options
 

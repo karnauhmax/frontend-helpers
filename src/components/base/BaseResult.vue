@@ -1,7 +1,7 @@
 <template>
   <div
-    :class="`grid justify-start px-4 py-2 gap-y-2 transition-colors duration-300  relative border ${copiedClass}`"
-    :style="`min-height: ${sizeMap[props.size]}`"
+    :class="`grid justify-start px-4 py-2 gap-y-2 transition-colors duration-300  relative border ${copiedClass} relative`"
+    :style="`min-height: ${SIZES[props.size]}`"
   >
     <BaseCopyBtn
       class="absolute right-4 top-4"
@@ -13,60 +13,57 @@
     </div>
 
     <slot />
+
+    <div
+      class="text-primary transition-all text-sm px-2 py-1 absolute bottom-[-40px] backdrop-blur-m bg-gradient-to-b from-gray-700 to-dark"
+      :class="{
+        'opacity-1 visible': isCopied,
+        'opacity-0 invisible': !isCopied
+      }"
+    >
+      <p>Copied!</p>
+    </div>
   </div>
-  <p
-    class="text-primary transition-all text-sm px-4 py-2"
-    :class="{
-      'opacity-1 visible': isCopied,
-      'opacity-0 invisible': !isCopied,
-    }"
-  >
-    Copied!
-  </p>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import BaseCopyBtn from './BaseCopyBtn.vue';
+import { computed, ref } from 'vue'
+import BaseCopyBtn from './BaseCopyBtn.vue'
 
-type Size = 'sm' | 'md' | 'lg';
+type Size = 'sm' | 'md' | 'lg'
 
 const props = withDefaults(
   defineProps<{
-    label?: string;
+    label?: string
 
-    size?: Size;
+    size?: Size
 
-    contentToCopy: string | number;
+    contentToCopy: string | number
   }>(),
   {
-    size: 'lg',
+    size: 'lg'
   }
-);
+)
 
-const isCopied = ref(false);
+const isCopied = ref(false)
 
-const COPY_DURATION: number = 3000;
+const COPY_DURATION: number = 3000
 
 const copiedClass = computed(() => {
-  return isCopied.value ? 'border-primary' : 'border-text-secondary/10';
-});
+  return isCopied.value ? 'border-primary' : 'border-text-secondary/10'
+})
 
-const sizeMap = {
+const SIZES = {
   sm: '50px',
   md: '200px',
-  lg: '350px',
-};
-
-const outputSize = computed(() => {
-  return sizeMap[props.size];
-});
+  lg: '350px'
+}
 
 const copyHandler = (): void => {
-  isCopied.value = true;
+  isCopied.value = true
 
   setTimeout(() => {
-    isCopied.value = false;
-  }, COPY_DURATION);
-};
+    isCopied.value = false
+  }, COPY_DURATION)
+}
 </script>

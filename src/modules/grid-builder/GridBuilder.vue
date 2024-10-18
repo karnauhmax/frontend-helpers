@@ -38,7 +38,7 @@
     </div>
 
     <GridOutput
-      ref="output"
+      ref="outputRef"
       v-show="generatedWidth"
       :units="units"
       :width="Number(generatedWidth)"
@@ -53,20 +53,20 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
 import { useGridBuilder } from './composables/useGridBuilder'
-import { type TUnits, UNITS } from './types'
+import { type TUnit, UNITS } from '@/types'
 import GridOutput from './GridOutput.vue'
 
 type TOutputElement = InstanceType<typeof GridOutput>
 
 const { calculateWidth } = useGridBuilder()
 
-const units = ref<TUnits>(UNITS.PX)
+const units = ref<TUnit>(UNITS.PX)
 const width = ref<number>(0)
 
 const isInputValid = ref<boolean>(true)
 const generatedWidth = ref<number>(0)
 
-const output = ref<TOutputElement | null>(null)
+const outputRef = ref<TOutputElement | null>(null)
 const outputHead = ref<HTMLDivElement | null>(null)
 
 const isRemUnitsSelected = computed(() => {
@@ -74,7 +74,7 @@ const isRemUnitsSelected = computed(() => {
 })
 
 const canGenerate = computed(() => {
-  return !output.value?.outputElement || width.value > 0
+  return !outputRef.value?.outputElementRef || width.value > 0
 })
 
 const scrollToTop = (): void => {
@@ -101,8 +101,8 @@ const generateHandler = (): void => {
 
   isInputValid.value = true
 
-  if (output.value?.outputElement) {
-    output.value.outputElement.style.width = `100%`
+  if (outputRef.value?.outputElementRef) {
+    outputRef.value.outputElementRef.style.width = `100%`
   }
 
   scrollToOutputHead()

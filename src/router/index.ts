@@ -12,7 +12,7 @@ const ClampCalculator = () => import('@/modules/clamp-calculator/ClampCalculator
 const CodeMinifier = () => import('@/modules/code-minifier/CodeMinifier.vue')
 const GradientGenerator = () => import('../components/gradient-generator/GradientGenerator.vue')
 const FontFaceGenerator = () => import('@/modules/font-face-generator/FontFaceGenerator.vue')
-const TransformGenerator = () => import('../components/transform-generator/TransformGenerator.vue')
+const TransformGenerator = () => import('@/modules/transform-generator/TransformGenerator.vue')
 const PerformanceReport = () => import('../components/performance-report/PerformanceReport.vue')
 const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUtilsGenerator.vue')
 const TailwindConfigGenerator = () =>

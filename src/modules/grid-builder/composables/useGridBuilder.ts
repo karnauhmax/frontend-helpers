@@ -1,5 +1,5 @@
 import { pxToRem } from '@/helpers/pxToRem'
-import { type TUnits } from '../types'
+import { type TUnit } from '@/types'
 
 /**
  *
@@ -8,7 +8,7 @@ import { type TUnits } from '../types'
  * @returns Width in px or rem
  */
 
-function calculateWidth(units: TUnits, width: number) {
+function calculateWidth(units: TUnit, width: number) {
   if (units === 'rem') {
     return pxToRem(width)
   }
