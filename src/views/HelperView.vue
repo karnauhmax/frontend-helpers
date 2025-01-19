@@ -9,7 +9,6 @@
             <h1 class="font-medium text-4xl mb-4">{{ title }}</h1>
             <p class="max-w-xl">{{ description }}</p>
           </div>
-          <RouterView />
         </div>
       </div>
     </div>
@@ -17,7 +16,6 @@
 </template>
 
 <script setup>
-import BaseSidebar from '@/components/base/BaseSidebar.vue'
-import BaseBreadcrumbs from '@/components/base/BaseBreadcrumbs.vue'
-import { RouterView } from 'vue-router'
+import BaseSidebar from '@/components/base/BaseSidebar.vue';
+import BaseBreadcrumbs from '@/components/base/BaseBreadcrumbs.vue';
 </script>
