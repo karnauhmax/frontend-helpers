@@ -13,10 +13,11 @@
       class="from-gray-700 to-dark bg-gradient-to-b rounded-bl-sm rounded-tl-sm w-[25px] h-[50px] grid place-items-center lg:hidden"
     >
       <ArrowLeft
-       :class="{
-         'rotate-180': isSidebarExpanded,
-       }"
-      :size="18" />
+        :class="{
+          'rotate-180': isSidebarExpanded
+        }"
+        :size="18"
+      />
     </button>
     <aside
       class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/50 to-dark self-start items-start h-full lg:w-full overflow-auto"
@@ -43,22 +44,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
-import { RouterLink } from 'vue-router'
-import { useClickOutside } from '@/composables/useClickOutside'
-import { useHelpersList } from '@/composables/useHelpersList'
+import { ref } from 'vue';
+import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
+import { RouterLink } from 'vue-router';
+import { useClickOutside } from '@/composables/useClickOutside';
+import { helpersList } from '@/constants';
 
-const isSidebarExpanded = ref(false)
-const sidebar = ref(null)
-
-const { helpersList } = useHelpersList()
+const isSidebarExpanded = ref(false);
+const sidebar = ref(null);
 
 const toggleSidebar = () => {
-  isSidebarExpanded.value = !isSidebarExpanded.value
-}
+  isSidebarExpanded.value = !isSidebarExpanded.value;
+};
 
 useClickOutside(sidebar, () => {
-  isSidebarExpanded.value = false
-})
+  isSidebarExpanded.value = false;
+});
 </script>

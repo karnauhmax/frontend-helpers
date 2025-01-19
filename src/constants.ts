@@ -1,7 +1,6 @@
-import type { IPreviewItem } from '@/types'
-import { ref } from 'vue'
+import type { IPreviewItem } from './types'
 
-const helpersList = ref<IPreviewItem[]>([
+export const helpersList: IPreviewItem[] = [
   {
     id: 1,
     title: 'PX to REM converter',
@@ -79,8 +78,4 @@ const helpersList = ref<IPreviewItem[]>([
     description: 'Optimise your images',
     url: 'image-optimiser'
   }
-])
-
-export function useHelpersList() {
-  return { helpersList }
-}
+]

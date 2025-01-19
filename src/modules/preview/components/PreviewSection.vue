@@ -1,12 +1,11 @@
 <template>
-  <section 
-    class="preview-section"  
-  >
+  <section class="preview-section">
     <h2 class="text-white text-3xl font-medium mb-7">
       {{ $t('home.available') }}
     </h2>
-    <div class="list grid grid-cols-preview-layout gap-[2px] p-[2px]"    
-      ref="sectionRef" 
+    <div
+      class="list grid grid-cols-preview-layout gap-[2px] p-[2px]"
+      ref="sectionRef"
       @mousemove="updateMousePosition"
       :style="{
         '--x': `${mouseX}px`,
@@ -27,9 +26,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import PreviewItem from './PreviewItem.vue';
-import { useHelpersList } from '@/composables/useHelpersList';
-
-const { helpersList } = useHelpersList();
+import { helpersList } from '@/constants';
 
 const sectionRef = ref<HTMLElement | null>(null);
 const mouseX = ref(0);
@@ -58,18 +55,14 @@ const updateMousePosition = (event: MouseEvent) => {
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0px;
     z-index: 2;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    background: radial-gradient(
-      200px circle at var(--x) var(--y),
-      #fff,
-      transparent 100%
-    );
-  }  
+    background: radial-gradient(200px circle at var(--x) var(--y), #fff, transparent 100%);
+  }
 }
 </style>
