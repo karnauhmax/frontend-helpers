@@ -71,6 +71,13 @@ const helpersList = ref<IPreviewItem[]>([
     title: 'Tailwind Config Generator',
     description: "Let's be honest, noone likes to create tailwind config manually ",
     url: 'tailwind-config-generator'
+  },
+
+  {
+    id: 11,
+    title: 'Image Optimiser',
+    description: 'Optimise your images',
+    url: 'image-optimiser'
   }
 ])
 

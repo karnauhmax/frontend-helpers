@@ -20,6 +20,7 @@ const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUti
 const TailwindConfigGenerator = () =>
   import('@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue')
 
+const ImageOptimiser = () => import('@/modules/image-optimiser/views/ImageOptimiserView.vue')
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -138,6 +139,17 @@ const router = createRouter({
       path: '/clip-path-generator',
       name: 'clip-path-generator',
       component: ClipPathGenerator
+    },
+
+    {
+      path: '/image-optimiser',
+      name: 'image-optimiser',
+      component: ImageOptimiser,
+      meta: {
+        title: 'Image Optimiser',
+        description: 'Compress and convert your images to AVIF, JPEG, JPEG XL, PNG, or WebP.',
+        layout: 'helper'
+      }
     }
   ],
 
