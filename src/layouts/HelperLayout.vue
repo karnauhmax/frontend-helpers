@@ -8,7 +8,7 @@
 
       <section>
         <div class="grid gap-y-7 lg:gap-y-8">
-          <div>
+          <div class="min-h-[104px]">
             <h1 class="font-medium text-4xl mb-4">{{ routeMeta.title }}</h1>
             <p class="max-w-xl">{{ routeMeta.description }}</p>
           </div>
