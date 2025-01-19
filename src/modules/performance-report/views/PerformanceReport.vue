@@ -3,7 +3,7 @@
     <div class="grid gap-y-5 md:gap-y-10">
       <form
         @submit.prevent="generateHandler"
-        :class="`grid gap-y-5 ${isLoading ? 'disabled' : ''}`"
+        :class="`grid gap-y-5 ${isProcessing ? 'disabled' : ''}`"
       >
         <BaseInput v-model="url" :label="$t('performanceReport.url')" />
 
@@ -27,11 +27,11 @@
           :label="$t('global.generate')"
           class="justify-self-start"
           type="submit"
-          :disabled="isLoading"
+          :disabled="isProcessing"
         />
       </form>
 
-      <div class="grid gap-y-8" v-if="showReport && !isLoading">
+      <div class="grid gap-y-8" v-if="showReport && !isProcessing">
         <div class="grid gap-y-2 md:max-w-[200px] w-full justify-self-center">
           <PerformanceReportMetric
             title="Performance Score"
@@ -52,58 +52,34 @@
         </div>
       </div>
     </div>
-    <BaseLoader class="absolute right-1/2 transform-x-1/2" v-if="isLoading" />
+    <BaseLoader class="absolute right-1/2 transform-x-1/2" v-if="isProcessing" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useStore } from '@/stores/main-store'
-import { storeToRefs } from 'pinia'
-import type { TPerformanceMetric } from './performance-report-types'
+import { ref } from 'vue'
 
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseLoader from '@/components/base/BaseLoader.vue'
 import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
-import PerformanceReportMetric from '@/components/performance-report/PerformanceReportMetric.vue'
+import PerformanceReportMetric from '../components/PerformanceReportMetric.vue'
+import { usePerformanceReport } from '../composables/usePerformanceReport'
+import type { TDevice } from '../types'
 
-const store = useStore()
-
-const { pageSpeedReport } = storeToRefs(store)
-const { generatePageSpeedReport } = store
+const { performanceScore, generatePageSpeedReport, filteredMetrics, isProcessing } =
+  usePerformanceReport()
 
 const url = ref('https://alescalifetech.com/')
 const showReport = ref(false)
-const isLoading = ref(false)
-const deviceType = ref('mobile')
+const deviceType = ref<TDevice>('mobile')
 
 const generateHandler = async (): Promise<void> => {
-  isLoading.value = true
-
-  await generatePageSpeedReport(url.value, deviceType.value)
-
-  showReport.value = true
-  isLoading.value = false
+  try {
+    await generatePageSpeedReport(url.value, deviceType.value)
+    showReport.value = true
+  } catch {
+    showReport.value = false
+  }
 }
-
-const METRICS_MAP = [
-  'cumulative-layout-shift',
-  'largest-contentful-paint',
-  'first-contentful-paint',
-  'speed-index',
-  'total-blocking-time',
-  'first-input-delay',
-  'first-meaningful-paint'
-]
-
-const pagespeedReportAudits = computed(() => pageSpeedReport.value?.audits)
-
-const filteredMetrics = computed<TPerformanceMetric[]>(() => {
-  const splitedMetrics: TPerformanceMetric[] = Object.entries(pagespeedReportAudits.value)
-
-  return splitedMetrics.filter(([title]) => METRICS_MAP.includes(title))
-})
-
-const performanceScore = computed(() => pageSpeedReport.value?.categories.performance.score)
 </script>

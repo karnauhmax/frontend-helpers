@@ -27,43 +27,43 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import BaseCopyBtn from './BaseCopyBtn.vue'
+import { computed, ref } from 'vue';
+import BaseCopyBtn from './BaseCopyBtn.vue';
 
-type Size = 'sm' | 'md' | 'lg'
+type Size = 'sm' | 'md' | 'lg';
 
 const props = withDefaults(
   defineProps<{
-    label?: string
+    label?: string;
 
-    size?: Size
+    size?: Size;
 
-    contentToCopy: string | number
+    contentToCopy: string | number;
   }>(),
   {
     size: 'lg'
   }
-)
+);
 
-const isCopied = ref(false)
+const isCopied = ref(false);
 
-const COPY_DURATION: number = 3000
+const COPY_DURATION: number = 3000;
 
 const copiedClass = computed(() => {
-  return isCopied.value ? 'border-primary' : 'border-text-secondary/10'
-})
+  return isCopied.value ? 'border-primary' : 'border-text-secondary/10';
+});
 
-const SIZES = {
+const SIZES: Record<Size, string> = {
   sm: '50px',
   md: '200px',
   lg: '350px'
-}
+};
 
 const copyHandler = (): void => {
-  isCopied.value = true
+  isCopied.value = true;
 
   setTimeout(() => {
-    isCopied.value = false
-  }, COPY_DURATION)
-}
+    isCopied.value = false;
+  }, COPY_DURATION);
+};
 </script>

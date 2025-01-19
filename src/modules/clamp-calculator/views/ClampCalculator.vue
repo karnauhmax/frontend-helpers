@@ -40,16 +40,14 @@
 import { ref } from 'vue'
 import i18n from '@/i18n'
 import BaseInput from '@/components/base/BaseInput.vue'
-import { useClampCalculator } from './composables/useClampCalculator'
+import { useClampCalculator } from '../composables/useClampCalculator'
 import BaseResult from '@/components/base/BaseResult.vue'
 import { UNITS } from '@/types'
 
 const { t } = i18n.global
 
 const viewportMin = ref(360)
-
 const viewportMax = ref(1920)
-
 const valuesMax = ref(24)
 const valuesMin = ref(16)
 

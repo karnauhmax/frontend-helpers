@@ -2,21 +2,23 @@ import { computed } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { loadLayoutMiddleware } from './layoutMiddleware'
 import i18n from '@/i18n'
+import ClipPathGenerator from '@/components/clip-path-generator/ClipPathGenerator.vue'
 
 const { t } = i18n.global
 
 const HomeView = () => import('../views/HomeView.vue')
-const GridBuilder = () => import('@/modules/grid-builder/GridBuilder.vue')
-const REMConverter = () => import('../components/rem-converter/REMConverter.vue')
-const ClampCalculator = () => import('@/modules/clamp-calculator/ClampCalculator.vue')
-const CodeMinifier = () => import('@/modules/code-minifier/CodeMinifier.vue')
+const GridBuilder = () => import('@/modules/grid-builder/views/GridBuilder.vue')
+const REMConverter = () => import('@/modules/rem-converter/views/REMConverter.vue')
+const ClampCalculator = () => import('@/modules/clamp-calculator/views/ClampCalculator.vue')
+const CodeMinifier = () => import('@/modules/code-minifier/views/CodeMinifier.vue')
 const GradientGenerator = () => import('../components/gradient-generator/GradientGenerator.vue')
-const FontFaceGenerator = () => import('@/modules/font-face-generator/FontFaceGenerator.vue')
-const TransformGenerator = () => import('@/modules/transform-generator/TransformGenerator.vue')
-const PerformanceReport = () => import('../components/performance-report/PerformanceReport.vue')
+const FontFaceGenerator = () => import('@/modules/font-face-generator/views/FontFaceGenerator.vue')
+const TransformGenerator = () =>
+  import('@/modules/transform-generator/views/TransformGenerator.vue')
+const PerformanceReport = () => import('@/modules/performance-report/views/PerformanceReport.vue')
 const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUtilsGenerator.vue')
 const TailwindConfigGenerator = () =>
-  import('../components/tailwind-config-generator/TailwindConfigGenerator.vue')
+  import('@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue')
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -130,6 +132,12 @@ const router = createRouter({
           "Let's be honest, noone likes to create tailwind config manually. So do it easily and fast ",
         layout: 'helper'
       }
+    },
+
+    {
+      path: '/clip-path-generator',
+      name: 'clip-path-generator',
+      component: ClipPathGenerator
     }
   ],
 

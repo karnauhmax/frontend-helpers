@@ -1,3 +1,4 @@
+w
 <template>
   <section>
     <div class="mb-4 grid gap-y-2 justify-items-start">
@@ -52,9 +53,9 @@ import { computed, ref, nextTick } from 'vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
-import { useGridBuilder } from './composables/useGridBuilder'
+import { useGridBuilder } from '../composables/useGridBuilder'
 import { type TUnit, UNITS } from '@/types'
-import GridOutput from './GridOutput.vue'
+import GridOutput from '../components/GridOutput.vue'
 
 type TOutputElement = InstanceType<typeof GridOutput>
 

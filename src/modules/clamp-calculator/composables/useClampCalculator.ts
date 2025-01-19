@@ -39,7 +39,9 @@ export function useClampCalculator(options: IOptions) {
   })
 
   const constant = computed(() => {
-    return parseFloat(((toValue(valuesMin) - toValue(viewportMax) * variablePart.value) / 16).toFixed(3))
+    return parseFloat(
+      ((toValue(valuesMin) - toValue(viewportMax) * variablePart.value) / 16).toFixed(3)
+    )
   })
 
   const minPx = computed(() => {

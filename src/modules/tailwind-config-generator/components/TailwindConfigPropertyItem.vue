@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import type { ICssPropertyItem } from './properties/properties.types'
+import type { ICssPropertyItem } from '../properties/properties.types'
 
 import TrashcanOutline from 'vue-material-design-icons/TrashcanOutline.vue'
 import BaseInput from '@/components/base/BaseInput.vue'

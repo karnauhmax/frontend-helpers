@@ -20,11 +20,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import BaseInput from '@/components/base/BaseInput.vue'
 import { pxToRem } from '@/helpers/pxToRem'
 import { remToPx } from '@/helpers/remToPx'
 import { ref } from 'vue'
+
 const pxValue = ref(16)
 const remValue = ref(1)
 

@@ -8,7 +8,7 @@ interface IOptions {
   type: TStorageType
 }
 
-export function useStorage(options: IOptions) {
+export function useStorage<T>(options: IOptions) {
   const { key, type, initialValue } = options
 
   const STORAGES: Record<TStorageType, Storage> = {
@@ -21,10 +21,7 @@ export function useStorage(options: IOptions) {
   const storageItem = storage.getItem(key)
   const parsedItem = storageItem ? JSON.parse(storageItem) : null
 
-  const currentValue = ref(
-    parsedItem ??
-      (isRef(initialValue) || isReactive(initialValue) ? initialValue.value : initialValue)
-  )
+  const currentValue = ref<T>(parsedItem ?? toValue(initialValue))
 
   watch(
     currentValue,
@@ -42,7 +39,7 @@ export function useStorage(options: IOptions) {
     watch(
       initialValue,
       (newVal) => {
-        currentValue.value = newVal // update the storage when the computed value changes
+        currentValue.value = newVal
       },
       {
         deep: true,

@@ -7,6 +7,7 @@
   >
     <GradientColorPoint
       @on-click="pointClickHandler"
+      @on-drag="handlePointDrag"
       v-for="{ x, id, hexCode } in points"
       :x="x"
       :key="id"
@@ -24,66 +25,97 @@ import { ref, inject, onMounted, watch } from 'vue';
 import type { IGradientPoint } from './gradient-generator-types';
 import GradientColorPoint from './GradientColorPoint.vue';
 
-
 const resultPoints = inject('resultPoints');
 const formattedResultPoints = inject('formattedResultPoints');
 const activePoint = inject('activePoint');
 
-console.log(activePoint);
-
-defineProps<{
+const props = defineProps<{
   points: IGradientPoint[];
 }>();
 
-const emits = defineEmits(['point-added', 'point-clicked', 'point-edited']);
+const emits = defineEmits(['point-added', 'point-clicked', 'update:points']);
 
-let rect;
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 const canvasContext = ref<CanvasRenderingContext2D | null>(null);
-const canvasGradient = ref<CanvasGradient | null>(null);
-
-const x = ref(0);
 const line = ref<HTMLDivElement | null>(null);
-const POINT_WIDTH: number = 25;
+const POINT_WIDTH = 25;
 
-const clickHandler = (event: MouseEvent): void => {
+let rect: DOMRect;
+
+const updateCanvas = () => {
+  if (!canvasContext.value || !rect) return;
+
+  const gradient = canvasContext.value.createLinearGradient(0, 0, rect.width, 0);
+  
+  resultPoints.value.forEach((point) => {
+    gradient.addColorStop(point.percentageX / 100, point.hexCode);
+  });
+
+  canvasContext.value.fillStyle = gradient;
+  canvasContext.value.fillRect(0, 0, rect.width, rect.height);
+};
+
+const clickHandler = (event: MouseEvent) => {
   const xClicked = event.clientX - rect.left;
   const newX = xClicked - POINT_WIDTH / 2;
   const percentageX = Math.floor((newX / rect.width) * 100);
 
-  console.log(rect.height);
+  if (percentageX < 0 || percentageX > 100) return;
 
-  x.value = newX;
-
-  // Получаем данные о пикселе
   const imageData = canvasContext.value!.getImageData(xClicked, rect.height / 2, 1, 1).data;
   const [r, g, b] = imageData;
-
-  console.log(r, g, b);
-
-  // Преобразуем RGB в HEX
   const hexCode = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
 
-  const newPoint = { x: x.value, percentageX, hexCode: '#000' };  
-
-  canvasGradient.value!.addColorStop(percentageX * 0.01, hexCode);
-
-  canvasGradient.value! = canvasContext.value!.createLinearGradient(0, 0, rect.width, 0);
-
-  resultPoints.value.forEach((point) => {
-    canvasGradient.value!.addColorStop(point.percentageX * 0.01, point.hexCode);
-  })
-
-  canvasContext.value!.fillStyle = canvasGradient.value;
-  canvasContext.value!.fillRect(0, 0, rect.width, rect.height)
-
-  console.log(percentageX * 0.01);
-  emits('point-added', newPoint);
+  emits('point-added', {
+    x: newX,
+    percentageX,
+    hexCode,
+    gradientColorR: r,
+    gradientColorG: g,
+    gradientColorB: b,
+    gradientColorA: 1,
+  });
 };
 
-
-const pointClickHandler = (id: number): void => {
+const pointClickHandler = (id: number) => {
   emits('point-clicked', id);
+};
+
+const handlePointDrag = ({ id, x }: { id: number, x: number }) => {
+  if (!rect) return;
+  
+  // Constrain x within the line boundaries
+  const constrainedX = Math.max(0, Math.min(x, rect.width - POINT_WIDTH));
+  const percentageX = Math.round((constrainedX / rect.width) * 100);
+  
+  // Get color at the new position
+  const imageData = canvasContext.value!.getImageData(
+    constrainedX + POINT_WIDTH / 2,
+    rect.height / 2,
+    1,
+    1
+  ).data;
+  
+  const [r, g, b] = imageData;
+  const hexCode = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
+
+  // Update the point's position and color
+  const updatedPoints = props.points.map(point => {
+    if (point.id === id) {
+      return {
+        ...point,
+        x: constrainedX,
+        percentageX,
+        hexCode,
+        gradientColorR: r,
+        gradientColorG: g,
+        gradientColorB: b
+      };
+    }
+    return point;
+  });
+
+  emits('update:points', updatedPoints);
 };
 
 onMounted(() => {
@@ -91,40 +123,11 @@ onMounted(() => {
   canvasRef.value!.width = rect.width;
   canvasRef.value!.height = rect.height;
   canvasContext.value = canvasRef.value!.getContext('2d');
-  canvasGradient.value = canvasContext.value!.createLinearGradient(0, 0, rect.width, 0);
+  updateCanvas();
+});
 
-  resultPoints.value.forEach((point) => {
-    canvasGradient.value!.addColorStop(point.percentageX * 0.01, point.hexCode);
-  })
-
-  canvasContext.value!.fillStyle = canvasGradient.value;
-  canvasContext.value!.fillRect(0, 0, rect.width, rect.height)
-})
-
-// watch(resultPoints, (newValue, oldValue) => {
-//   canvasGradient.value! = canvasContext.value!.createLinearGradient(0, 0, rect.width, 0);
-//     newValue.forEach((point) => {
-//       canvasGradient.value!.addColorStop(point.percentageX * 0.01, point.hexCode);
-//     })
-
-//     canvasContext.value!.fillStyle = canvasGradient.value;
-//     canvasContext.value!.fillRect(0, 0, rect.width, rect.height)
-// }, {
-//   deep: true
-// })
-
-// watch(() => activePoint.value.hexCode, (newValue, oldValue) => {
-//   console.log(newValue, oldValue);
-
-//   console.log(newValue.percentageX);
-//   canvasGradient.value! = canvasContext.value!.createLinearGradient(0, 0, rect.width, 0);
-//   canvasGradient.value!.addColorStop(newValue.percentageX * 0.01, newValue.hexCode);
-//   canvasContext.value!.fillStyle = canvasGradient.value;
-//   canvasContext.value!.fillRect(0, 0, rect.width, rect.height)
-
-// }, {
-//   deep: true
-// })
+watch(resultPoints, updateCanvas, { deep: true });
+watch(() => activePoint.value.hexCode, updateCanvas);
 </script>
 
 <style lang="scss" scoped></style>

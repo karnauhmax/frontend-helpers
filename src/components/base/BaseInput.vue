@@ -1,6 +1,6 @@
 <template>
   <label class="grid gap-y-2 justify-items-start" :for="id">
-    <p v-if="label">{{ label }}</p>
+    <span v-if="label">{{ label }}</span>
 
     <input
       :class="`text-secondary w-full bg-dark border p-2 focus:outline-none focus:border2 focus:border-primary pr-8 ${

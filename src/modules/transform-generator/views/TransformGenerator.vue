@@ -37,7 +37,7 @@
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseRangeInput from '@/components/base/BaseRangeInput.vue'
 import BaseResult from '@/components/base/BaseResult.vue'
-import { useTransformGenerator } from './composables/useTransformGenerator'
+import { useTransformGenerator } from '../composables/useTransformGenerator'
 
 const { cssRulesToChange, output, showResult, dynamicStyles } = useTransformGenerator()
 </script>

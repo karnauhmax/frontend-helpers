@@ -2,8 +2,6 @@
   <div class="loader"></div>
 </template>
 
-<script setup></script>
-
 <style lang="scss" scoped>
 .loader {
   border: 4px solid rgb(89, 89, 89);

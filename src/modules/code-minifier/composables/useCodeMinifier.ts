@@ -1,6 +1,6 @@
 import { ref, toValue } from 'vue'
 
-import { type IMinifyOption, type TMinifyValue, MINIFY_TYPES } from '@/modules/code-minifier/types'
+import { type IMinifyOption, type TMinifyValue, MINIFY_TYPES } from '../types'
 
 const minifyOptions = ref<IMinifyOption[]>([
   {
@@ -27,6 +27,13 @@ const minifyOptions = ref<IMinifyOption[]>([
   }
 ])
 
+/**
+ * Minifies an HTML string by removing comments, reducing whitespace,
+ * and eliminating spaces between tags.
+ *
+ * @param input - The HTML string to be minified.
+ * @returns The minified HTML string.
+ */
 const minifyHtml = (input: string): string => {
   const minifiedValue = input
     .replace(/<!--[\s\S]*?-->/g, '')
@@ -36,6 +43,14 @@ const minifyHtml = (input: string): string => {
   return minifiedValue
 }
 
+  /**
+   * Minifies a CSS string by removing spaces between property values,
+   * property names and their values, semicolons and whitespace, and
+   * comments.
+   *
+   * @param input - The CSS string to be minified.
+   * @returns The minified CSS string.
+   */
 const minifyCss = (input: string): string => {
   const minifiedValue = input
     .replace(/([^0-9a-zA-Z\.#])\s+/g, '$1')
@@ -46,6 +61,13 @@ const minifyCss = (input: string): string => {
   return minifiedValue
 }
 
+  /**
+   * Minifies a JavaScript string by removing comments, and reducing
+   * whitespace to a single space.
+   *
+   * @param input - The JavaScript string to be minified.
+   * @returns The minified JavaScript string.
+   */
 const minifyJavaScript = (input: string): string => {
   let minifiedValue = input.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '')
 
@@ -61,6 +83,15 @@ const HANDLERS_MAP: Record<TMinifyValue['value'], (input: string) => string> = {
   [MINIFY_TYPES.SCSS.value]: minifyCss
 }
 
+  /**
+   * Given a minification type and an input string, returns the minified version
+   * of that input string.
+   *
+   * @param type - The type of minification to perform. Must match one of the
+   *   values in the {@link MINIFY_TYPES} object.
+   * @param input - The string to be minified.
+   * @returns The minified string, or undefined if the `type` is not recognized.
+   */
 const generateMinifiedCode = (type: TMinifyValue['value'], input: string) => {
   const inputValueValue = toValue(input)
 

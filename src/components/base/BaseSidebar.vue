@@ -9,10 +9,14 @@
   >
     <button
       type="button"
-      @click="isSidebarExpanded = !isSidebarExpanded"
+      @click="toggleSidebar"
       class="from-gray-700 to-dark bg-gradient-to-b rounded-bl-sm rounded-tl-sm w-[25px] h-[50px] grid place-items-center lg:hidden"
     >
-      <ArrowLeft :size="18" />
+      <ArrowLeft
+       :class="{
+         'rotate-180': isSidebarExpanded,
+       }"
+      :size="18" />
     </button>
     <aside
       class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/50 to-dark self-start items-start h-full lg:w-full overflow-auto"
@@ -22,7 +26,7 @@
       </div>
       <div class="px-5 py-2">
         <ul class="grid gap-y-3">
-          <li v-for="{ id, url, title } in previewItems" :key="id">
+          <li v-for="{ id, url, title } in helpersList" :key="id">
             <RouterLink
               class="font-bold hover:text-primary transition-colors duration-300 focus:underline focus:text-primary focus:outline-none"
               active-class="active"
@@ -39,19 +43,20 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
-import { useStore } from '@stores/main-store.ts'
 import { RouterLink } from 'vue-router'
 import { useClickOutside } from '@/composables/useClickOutside'
-
-const store = useStore()
+import { useHelpersList } from '@/composables/useHelpersList'
 
 const isSidebarExpanded = ref(false)
 const sidebar = ref(null)
 
-const { previewItems } = storeToRefs(store)
+const { helpersList } = useHelpersList()
+
+const toggleSidebar = () => {
+  isSidebarExpanded.value = !isSidebarExpanded.value
+}
 
 useClickOutside(sidebar, () => {
   isSidebarExpanded.value = false

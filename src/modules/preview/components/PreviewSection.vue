@@ -1,11 +1,20 @@
 <template>
-  <section>
+  <section 
+    class="preview-section"  
+  >
     <h2 class="text-white text-3xl font-medium mb-7">
       {{ $t('home.available') }}
     </h2>
-    <div class="grid grid-cols-preview-layout gap-4 pb-16">
+    <div class="list grid grid-cols-preview-layout gap-[2px] p-[2px]"    
+      ref="sectionRef" 
+      @mousemove="updateMousePosition"
+      :style="{
+        '--x': `${mouseX}px`,
+        '--y': `${mouseY}px`
+      }"
+    >
       <PreviewItem
-        v-for="{ id, title, description, url } in previewItems"
+        v-for="{ id, title, description, url } in helpersList"
         :key="id"
         :title="title"
         :description="description"
@@ -15,12 +24,52 @@
   </section>
 </template>
 
-<script setup>
-import { storeToRefs } from 'pinia';
-import { useStore } from '@stores/main-store.ts';
+<script setup lang="ts">
+import { ref } from 'vue';
 import PreviewItem from './PreviewItem.vue';
+import { useHelpersList } from '@/composables/useHelpersList';
 
-const store = useStore();
+const { helpersList } = useHelpersList();
 
-const { previewItems } = storeToRefs(store);
+const sectionRef = ref<HTMLElement | null>(null);
+const mouseX = ref(0);
+const mouseY = ref(0);
+
+const updateMousePosition = (event: MouseEvent) => {
+  if (sectionRef.value) {
+    const rect = sectionRef.value.getBoundingClientRect();
+    mouseX.value = event.clientX - rect.left;
+    mouseY.value = event.clientY - rect.top;
+  }
+};
 </script>
+
+<style scoped lang="scss">
+.list {
+  position: relative;
+  overflow: hidden;
+
+  @media (hover: hover) {
+    &:hover {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background: radial-gradient(
+      200px circle at var(--x) var(--y),
+      #fff,
+      transparent 100%
+    );
+  }  
+}
+</style>

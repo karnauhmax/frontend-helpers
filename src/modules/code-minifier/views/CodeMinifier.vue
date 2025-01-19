@@ -56,8 +56,8 @@ import { computed, ref } from 'vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCopyBtn from '@/components/base/BaseCopyBtn.vue'
 import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
-import { useCodeMinifier } from './composables/useCodeMinifier'
-import type { TMinifyValue } from './types'
+import { useCodeMinifier } from '../composables/useCodeMinifier'
+import type { TMinifyValue } from '../types'
 
 const { generateMinifiedCode, minifyOptions } = useCodeMinifier()
 

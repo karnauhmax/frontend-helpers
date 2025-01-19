@@ -5,3 +5,10 @@ export const UNITS = {
 } as const
 
 export type TUnit = (typeof UNITS)[keyof typeof UNITS]
+
+export interface IPreviewItem {
+  id: number
+  title: string
+  description: string
+  url: string
+}

@@ -1,7 +1,6 @@
-<script setup>
-import HeroSection from "../components/HeroSection.vue";
-import PreviewSection from "../components/preview/PreviewSection.vue";
-import GridBuilder from "../components/grid-builder/GridBuilder.vue";
+<script setup lang="ts">
+import HeroSection from '../components/HeroSection.vue'
+import PreviewSection from '@/modules/preview/components/PreviewSection.vue'
 </script>
 
 <template>

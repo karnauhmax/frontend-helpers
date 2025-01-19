@@ -66,7 +66,7 @@ import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
 import BaseResult from '@/components/base/BaseResult.vue'
-import { useFontFaceGenerator } from './composables/useFontFaceGenerator'
+import { useFontFaceGenerator } from '../composables/useFontFaceGenerator'
 
 // ???
 

@@ -42,19 +42,6 @@
     font-size: inherit;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background-color: #1c1b1b;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 12px;
-    background-color: #f5f5f5;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-  }
-
   .not-clickable {
     pointer-events: none;
   }
