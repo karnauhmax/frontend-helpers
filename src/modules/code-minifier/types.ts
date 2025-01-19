@@ -19,7 +19,7 @@ export const MINIFY_TYPES = {
 export type TMinifyValue = (typeof MINIFY_TYPES)[keyof typeof MINIFY_TYPES];
 
 export interface IMinifyOption {
-  title: TMinifyValue.title;
-  value: TMinifyValue.value;
+  title: TMinifyValue['title'];
+  value: TMinifyValue['value'];
   checked: boolean;
 }

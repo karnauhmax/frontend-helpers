@@ -7,7 +7,6 @@ const fetchData = async <T>(url: string, options?: object): Promise<T> => {
 
     return data;
   } catch (error) {
-    console.log(1);
     throw error;
   }
 };
