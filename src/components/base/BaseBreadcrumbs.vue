@@ -19,6 +19,4 @@
 import { RouterLink, useRoute } from 'vue-router';
 
 const router = useRoute();
-
-console.log(router.matched);
 </script>
