@@ -5,14 +5,14 @@
 </template>
 
 <script setup lang="ts">
-const model = defineModel()
+const model = defineModel();
 
 interface Props {
-  minValue: string | number
+  minValue?: string | number;
 
-  maxValue: string | number
+  maxValue?: string | number;
 
-  stepValue: string | number
+  stepValue?: string | number;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -21,7 +21,7 @@ withDefaults(defineProps<Props>(), {
   maxValue: '100',
 
   stepValue: '1'
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -43,7 +43,7 @@ input[type='range']:focus {
 /***** Chrome, Safari, Opera and Edge Chromium styles *****/
 /* slider track */
 input[type='range']::-webkit-slider-runnable-track {
-  background-color: rgb(55 65 81 / 0.5);
+  background-color: rgb(55 65 81 / 0.2);
   height: 0.5rem;
 }
 
@@ -51,13 +51,15 @@ input[type='range']::-webkit-slider-runnable-track {
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  margin-top: -7px; /* Centers thumb on the track */
+  margin-top: -3px; /* Centers thumb on the track */
 
   /*custom styles*/
-  background-color: var(--primary-color);
-  height: 20px;
-  width: 20px;
-  border-radius: 3px;
+  border: 1px solid var(--primary-color);
+  outline: 1px solid var(--primary-color);
+  outline-offset: 3px;
+  height: 15px;
+  width: 15px;
+  transform: rotate(45deg);
 }
 
 input[type='range']:focus::-webkit-slider-thumb {

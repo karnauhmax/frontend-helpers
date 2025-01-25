@@ -1,26 +1,26 @@
-import { computed } from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
-import { loadLayoutMiddleware } from './layoutMiddleware'
-import i18n from '@/i18n'
-import ClipPathGenerator from '@/components/clip-path-generator/ClipPathGenerator.vue'
+import { computed } from 'vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { loadLayoutMiddleware } from './layoutMiddleware';
+import i18n from '@/i18n';
+import ClipPathGenerator from '@/components/clip-path-generator/ClipPathGenerator.vue';
 
-const { t } = i18n.global
+const { t } = i18n.global;
 
-const HomeView = () => import('../views/HomeView.vue')
-const GridBuilder = () => import('@/modules/grid-builder/views/GridBuilder.vue')
-const REMConverter = () => import('@/modules/rem-converter/views/REMConverter.vue')
-const ClampCalculator = () => import('@/modules/clamp-calculator/views/ClampCalculator.vue')
-const CodeMinifier = () => import('@/modules/code-minifier/views/CodeMinifier.vue')
-const GradientGenerator = () => import('../components/gradient-generator/GradientGenerator.vue')
-const FontFaceGenerator = () => import('@/modules/font-face-generator/views/FontFaceGenerator.vue')
+const HomeView = () => import('../views/HomeView.vue');
+const GridBuilder = () => import('@/modules/grid-builder/views/GridBuilder.vue');
+const REMConverter = () => import('@/modules/rem-converter/views/REMConverter.vue');
+const ClampCalculator = () => import('@/modules/clamp-calculator/views/ClampCalculator.vue');
+const CodeMinifier = () => import('@/modules/code-minifier/views/CodeMinifier.vue');
+const GradientGenerator = () => import('../components/gradient-generator/GradientGenerator.vue');
+const FontFaceGenerator = () => import('@/modules/font-face-generator/views/FontFaceGenerator.vue');
 const TransformGenerator = () =>
-  import('@/modules/transform-generator/views/TransformGenerator.vue')
-const PerformanceReport = () => import('@/modules/performance-report/views/PerformanceReport.vue')
-const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUtilsGenerator.vue')
+  import('@/modules/transform-generator/views/TransformGenerator.vue');
+const PerformanceReport = () => import('@/modules/performance-report/views/PerformanceReport.vue');
+const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUtilsGenerator.vue');
 const TailwindConfigGenerator = () =>
-  import('@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue')
+  import('@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue');
 
-const ImageOptimiser = () => import('@/modules/image-optimiser/views/ImageOptimiserView.vue')
+const ImageOptimiser = () => import('@/modules/image-optimiser/views/ImageOptimiserView.vue');
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -147,17 +147,17 @@ const router = createRouter({
       component: ImageOptimiser,
       meta: {
         title: 'Image Optimiser',
-        description: 'Compress and convert your images to AVIF, JPEG, JPEG XL, PNG, or WebP.',
+        description: 'Compress and convert your images to AVIF, JPEG, PNG, or WebP.',
         layout: 'helper'
       }
     }
   ],
 
   scrollBehavior() {
-    return { top: 0 }
+    return { top: 0 };
   }
-})
+});
 
-router.beforeEach(loadLayoutMiddleware)
+router.beforeEach(loadLayoutMiddleware);
 
-export default router
+export default router;
