@@ -1,39 +1,27 @@
 <template>
   <div class="grid gap-y-2">
     <div class="flex gap-x-5">
-      <BaseInput
-        @input="pxHandler"
-        v-model="pxValue"
-        :label="$t('pxConverter.valuePx')"
-        type="number"
-      />
-      <BaseInput
-        @input="remHandler"
-        v-model="remValue"
-        :label="$t('pxConverter.valueRem')"
-        type="number"
-      />
+      <BaseInput @input="pxHandler" v-model="pxValue" label="Value in px" type="number" />
+      <BaseInput @input="remHandler" v-model="remValue" label="Value in rem" type="number" />
     </div>
-    <p class="text-text-secondary text-sm">
-      {{ $t('pxConverter.note') }}
-    </p>
+    <p class="text-text-secondary text-sm">Calculation based on a root font-size of 16 pixel.</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import BaseInput from '@/components/base/BaseInput.vue'
-import { pxToRem } from '@/helpers/pxToRem'
-import { remToPx } from '@/helpers/remToPx'
-import { ref } from 'vue'
+import BaseInput from '@/components/base/BaseInput.vue';
+import { pxToRem } from '@/helpers/pxToRem';
+import { remToPx } from '@/helpers/remToPx';
+import { ref } from 'vue';
 
-const pxValue = ref(16)
-const remValue = ref(1)
+const pxValue = ref(16);
+const remValue = ref(1);
 
 const pxHandler = () => {
-  remValue.value = pxToRem(pxValue.value)
-}
+  remValue.value = pxToRem(pxValue.value);
+};
 
 const remHandler = () => {
-  pxValue.value = remToPx(remValue.value)
-}
+  pxValue.value = remToPx(remValue.value);
+};
 </script>

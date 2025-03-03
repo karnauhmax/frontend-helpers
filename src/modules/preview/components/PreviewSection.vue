@@ -1,8 +1,6 @@
 <template>
   <section class="preview-section">
-    <h2 class="text-white text-3xl font-medium mb-7">
-      {{ $t('home.available') }}
-    </h2>
+    <h2 class="text-secondary text-3xl font-regular mb-7">Available Helpers</h2>
     <div
       class="list grid grid-cols-preview-layout gap-[2px] p-[2px]"
       ref="sectionRef"
@@ -62,7 +60,11 @@ const updateMousePosition = (event: MouseEvent) => {
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    background: radial-gradient(200px circle at var(--x) var(--y), #fff, transparent 100%);
+    background: radial-gradient(
+      200px circle at var(--x) var(--y),
+      var(--primary-color),
+      transparent 100%
+    );
   }
 }
 </style>

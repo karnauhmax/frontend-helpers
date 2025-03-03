@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed right-0 h-full top-[var(--header-height)] z-10 transition-transform lg:transform-none lg:relative lg:top-0 lg:h-auto flex items-center overflow-y-auto"
+    class="fixed right-0 h-full top-[var(--header-height)] z-10 transition-transform lg:transform-none lg:sticky lg:top-[20px] lg:h-auto flex items-center overflow-y-auto"
     ref="sidebar"
     :class="{
       'translate-x-0': isSidebarExpanded,
@@ -23,13 +23,13 @@
       class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/50 to-dark self-start items-start h-full lg:w-full overflow-auto"
     >
       <div class="px-5 py-2 border-b border-text-secondary/10">
-        <p class="text-center font-bold">{{ $t('global.check') }}</p>
+        <p class="text-center font-regular">Other Helpers</p>
       </div>
       <div class="px-5 py-2">
         <ul class="grid gap-y-3">
           <li v-for="{ id, url, title } in helpersList" :key="id">
             <RouterLink
-              class="font-bold hover:text-primary transition-colors duration-300 focus:underline focus:text-primary focus:outline-none"
+              class="font-regular hover:text-primary transition-colors duration-300 focus:underline focus:text-primary focus:outline-none"
               active-class="active"
               @click="isSidebarExpanded = false"
               :to="`/${url}`"

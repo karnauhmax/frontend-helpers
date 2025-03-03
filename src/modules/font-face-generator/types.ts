@@ -3,26 +3,26 @@ const FORMATS = {
   WOFF: 'woff',
   TTF: 'ttf',
   OTF: 'otf'
-} as const
+} as const;
 
-type TFontFormats = (typeof FORMATS)[keyof typeof FORMATS]
+type TFontFormats = (typeof FORMATS)[keyof typeof FORMATS];
 
 interface IFontStyleWeight {
-  id: number
-  checked: boolean
+  id: number;
+  checked: boolean;
 }
 
 interface IFontWeight extends IFontStyleWeight {
-  value: number
+  value: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 }
 
 interface IFontStyle extends IFontStyleWeight {
-  value: 'normal' | 'italic' | 'oblique'
+  value: 'normal' | 'italic' | 'oblique';
 }
 
 interface IFontFormat {
-  id: number
-  value: TFontFormats
+  id: number;
+  value: TFontFormats;
 }
 
 export {
@@ -32,4 +32,4 @@ export {
   type IFontStyleWeight,
   type IFontWeight,
   type TFontFormats
-}
+};

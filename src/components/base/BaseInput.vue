@@ -4,7 +4,7 @@
 
     <input
       :class="`text-secondary w-full bg-dark border p-2 focus:outline-none focus:border2 focus:border-primary pr-8 ${
-        isValid ? 'border-text-secondary' : 'border-red-500/100'
+        isValid ? 'border-primary' : 'border-red-500/100'
       }`"
       v-model="model"
       :value="model"
@@ -23,18 +23,16 @@
 </template>
 
 <script setup lang="ts">
-import { useId } from 'vue'
+import { useId } from 'vue';
 
-const model = defineModel<string | number>()
-const id = useId()
 interface Props {
-  label?: string | boolean
+  label?: string | boolean;
 
-  isValid?: boolean
+  isValid?: boolean;
 
-  errorMessage?: string | boolean
+  errorMessage?: string | boolean;
 
-  units?: string | boolean
+  units?: string | boolean;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -42,5 +40,8 @@ withDefaults(defineProps<Props>(), {
   isValid: true,
   errorMessage: false,
   units: false
-})
+});
+
+const model = defineModel<string | number>('modelValue', {});
+const id = useId();
 </script>

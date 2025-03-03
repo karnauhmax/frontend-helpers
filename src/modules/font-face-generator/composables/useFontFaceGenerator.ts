@@ -1,11 +1,11 @@
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 import {
   FORMATS,
   type IFontFormat,
   type IFontStyle,
   type IFontWeight,
   type TFontFormats
-} from '../types'
+} from '../types';
 
 const formats = ref<IFontFormat[]>([
   {
@@ -27,7 +27,7 @@ const formats = ref<IFontFormat[]>([
     id: 4,
     value: FORMATS.OTF
   }
-])
+]);
 
 const weights = ref<IFontWeight[]>([
   {
@@ -83,7 +83,7 @@ const weights = ref<IFontWeight[]>([
     value: 900,
     checked: false
   }
-])
+]);
 
 const styles = ref<IFontStyle[]>([
   {
@@ -103,20 +103,20 @@ const styles = ref<IFontStyle[]>([
     value: 'oblique',
     checked: false
   }
-])
+]);
 
-const fileName = ref('Montserrat')
-const fontPath = ref('../fonts/')
-const selectedWeight = ref(400)
-const selectedStyle = ref('normal')
-const selectedFormats = ref<TFontFormats[]>([FORMATS.WOFF2])
+const fileName = ref('Montserrat');
+const fontPath = ref('../fonts/');
+const selectedWeight = ref<IFontWeight['value']>(400);
+const selectedStyle = ref('normal');
+const selectedFormats = ref<TFontFormats[]>([FORMATS.WOFF2]);
 
 const getSource = (format: string, index: number, array: string[]) => {
-  const url = `${fontPath.value}${fileName.value}.${format} `
+  const url = `${fontPath.value}${fileName.value}.${format} `;
   return index === 0
     ? `url("${url}") format("${format}")${index < array.length - 1 ? ',' : ';'}`
-    : `        url("${url}") format("${format}")${index < array.length - 1 ? ',' : ';'}`
-}
+    : `        url("${url}") format("${format}")${index < array.length - 1 ? ',' : ';'}`;
+};
 
 const result = computed(() => {
   const result = `@font-face {
@@ -124,13 +124,9 @@ const result = computed(() => {
     src: ${selectedFormats.value.map(getSource).join('\n     ')}
     font-weight: ${selectedWeight.value};
     font-style: ${selectedStyle.value};
-  }`
-  return result
-})
-
-const checkIfDisabled = (value: TFontFormats) => {
-  return selectedFormats.value.length === 1 && selectedFormats.value.includes(value)
-}
+  }`;
+  return result;
+});
 
 export function useFontFaceGenerator() {
   return {
@@ -142,7 +138,6 @@ export function useFontFaceGenerator() {
     selectedWeight,
     selectedStyle,
     selectedFormats,
-    result,
-    checkIfDisabled
-  }
+    result
+  };
 }

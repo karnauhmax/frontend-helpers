@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --primary-color: #fff;
-  --dark-color: #0c0c0c;
-  --header-height: 57px;
+  --primary-color: #d2d2ff;
+  --dark-color: #16161d;
 }
 
 @layer base {
@@ -28,7 +27,6 @@
 
   body {
     @apply bg-dark font-main text-text-primary;
-    padding-top: var(--header-height);
   }
 
   input[type='number']::-webkit-inner-spin-button,
@@ -63,15 +61,12 @@
     @apply border-primary;
   }
 
-  .score-mid {
-  }
-
   .checkbox-label:focus-within .checkbox-container {
     @apply outline outline-1 outline-primary;
   }
 
   .checkbox-container {
-    @apply w-[20px] h-[20px] block bg-dark border relative border-text-secondary checked:bg-primary before:content-[''] before:w-[12px] before:h-[12px] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:bg-primary mr-2 before:opacity-0 peer-checked:before:opacity-100 before:transition rounded-sm before:rounded-sm;
+    @apply w-[20px] h-[20px] block bg-dark border relative border-primary checked:bg-primary before:content-[''] before:w-[12px] before:h-[12px] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:bg-primary mr-2 before:opacity-0 peer-checked:before:opacity-100 before:transition rounded-sm before:rounded-sm font-extralight;
   }
 
   .radio-label:focus-within .radio-container {
@@ -79,6 +74,6 @@
   }
 
   .radio-container {
-    @apply w-[16px] h-[16px] left-0 top-2/4 -translate-y-1/2 rounded-full bg-dark border border-text-secondary absolute before:content-[''] before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:opacity-0 before:rounded-full before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 peer-checked:before:opacity-100 before:transition-opacity;
+    @apply w-[16px] h-[16px] left-0 top-2/4 -translate-y-1/2 rounded-full bg-dark border border-primary absolute before:content-[''] before:w-[8px] before:h-[8px] before:absolute before:bg-primary before:opacity-0 before:rounded-full before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 peer-checked:before:opacity-100 before:transition-opacity;
   }
 }

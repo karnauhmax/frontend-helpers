@@ -1,7 +1,7 @@
 <template>
-  <div class="border border-text-secondary/10 p-4 grid grid-cols-2 gap-x-4 xl:gap-x-7 gap-y-4">
+  <div class="border border-text-primary/10 p-4 grid grid-cols-2 gap-x-4 xl:gap-x-7 gap-y-4">
     <div class="grid gap-y-4">
-      <p class="font-bold">{{ $t('clampCalculator.values') }}</p>
+      <p class="font-regular">Values</p>
 
       <div class="flex flex-col xl:flex-row gap-2">
         <BaseInput
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="grid gap-y-5">
-      <p class="font-bold">{{ $t('clampCalculator.viewport') }}</p>
+      <p class="font-regular">Viewport</p>
       <div class="flex flex-col xl:flex-row gap-2">
         <BaseInput
           v-for="item in viewportInputsConfig"
@@ -37,31 +37,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import i18n from '@/i18n'
-import BaseInput from '@/components/base/BaseInput.vue'
-import { useClampCalculator } from '../composables/useClampCalculator'
-import BaseResult from '@/components/base/BaseResult.vue'
-import { UNITS } from '@/types'
+import { ref } from 'vue';
+import BaseInput from '@/components/base/BaseInput.vue';
+import { useClampCalculator } from '../composables/useClampCalculator';
+import BaseResult from '@/components/base/BaseResult.vue';
+import { UNITS } from '@/types';
 
-const { t } = i18n.global
-
-const viewportMin = ref(360)
-const viewportMax = ref(1920)
-const valuesMax = ref(24)
-const valuesMin = ref(16)
+const viewportMin = ref(360);
+const viewportMax = ref(1920);
+const valuesMax = ref(24);
+const valuesMin = ref(16);
 
 const { calculatedClamp } = useClampCalculator({
   viewportMin,
   viewportMax,
   valuesMin,
   valuesMax
-})
+});
 
 const viewportInputsConfig = ref([
   {
     id: 1,
-    label: t('global.labels.min'),
+    label: 'Min',
     units: UNITS.PX,
     type: 'number',
     value: viewportMin
@@ -69,17 +66,17 @@ const viewportInputsConfig = ref([
 
   {
     id: 2,
-    label: t('global.labels.max'),
+    label: 'Max',
     units: UNITS.PX,
     type: 'number',
     value: viewportMax
   }
-])
+]);
 
 const valuesInputsConfig = ref([
   {
     id: 1,
-    label: t('global.labels.min'),
+    label: 'Min',
     units: UNITS.PX,
     type: 'number',
     value: valuesMin
@@ -87,10 +84,10 @@ const valuesInputsConfig = ref([
 
   {
     id: 2,
-    label: t('global.labels.max'),
+    label: 'Max',
     units: UNITS.PX,
     type: 'number',
     value: valuesMax
   }
-])
+]);
 </script>

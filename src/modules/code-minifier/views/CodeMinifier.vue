@@ -15,7 +15,7 @@
 
     <div class="grid gap-y-4">
       <div class="border border-text-secondary/10 py-2 px-4">
-        <p>{{ $t('global.input') }}</p>
+        <p>Input</p>
       </div>
 
       <div class="relative">
@@ -27,14 +27,14 @@
       </div>
       <BaseButton
         class="max-w-[150px]"
-        :label="$t('global.generate')"
+        label="Generate"
         @click="generateHandler"
         :disabled="isButtonDisabled"
       />
 
       <div class="grid gap-y-4" v-show="showOutput">
         <div class="border border-text-secondary/10 py-2 px-4">
-          <p>{{ $t('global.output') }}</p>
+          <p>Output</p>
         </div>
         <div class="relative">
           <label for="textarea">
@@ -52,35 +52,35 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import BaseButton from '@/components/base/BaseButton.vue'
-import BaseCopyBtn from '@/components/base/BaseCopyBtn.vue'
-import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
-import { useCodeMinifier } from '../composables/useCodeMinifier'
-import type { TMinifyValue } from '../types'
+import { computed, ref } from 'vue';
+import BaseButton from '@/components/base/BaseButton.vue';
+import BaseCopyBtn from '@/components/base/BaseCopyBtn.vue';
+import BaseRadioButton from '@/components/base/BaseRadioButton.vue';
+import { useCodeMinifier } from '../composables/useCodeMinifier';
+import type { TMinifyValue } from '../types';
 
-const { generateMinifiedCode, minifyOptions } = useCodeMinifier()
+const { generateMinifiedCode, minifyOptions } = useCodeMinifier();
 
-const outputValue = ref('')
-const inputValue = ref('')
-const selectedOption = ref<TMinifyValue['value']>('JS')
-const showOutput = ref(false)
+const outputValue = ref('');
+const inputValue = ref('');
+const selectedOption = ref<TMinifyValue['value']>('JS');
+const showOutput = ref(false);
 
 const isButtonDisabled = computed(() => {
-  return !inputValue.value
-})
+  return !inputValue.value;
+});
 
 const generateHandler = () => {
-  outputValue.value = generateMinifiedCode(selectedOption.value, inputValue.value)
+  outputValue.value = generateMinifiedCode(selectedOption.value, inputValue.value);
 
-  showOutput.value = true
-}
+  showOutput.value = true;
+};
 
 const updateHandler = (value) => {
-  selectedOption.value = value
+  selectedOption.value = value;
 
-  outputValue.value = ''
-  inputValue.value = ''
-  showOutput.value = false
-}
+  outputValue.value = '';
+  inputValue.value = '';
+  showOutput.value = false;
+};
 </script>

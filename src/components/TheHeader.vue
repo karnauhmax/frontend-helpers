@@ -14,14 +14,11 @@
             />
           </svg>
         </a>
-
-        <BaseLanguageSwitcher />
       </div>
     </BaseContainer>
   </header>
 </template>
 
 <script setup lang="ts">
-import BaseContainer from '@/components/base/BaseContainer.vue'
-import BaseLanguageSwitcher from '@/components/base/BaseLanguageSwitcher.vue'
+import BaseContainer from '@/components/base/BaseContainer.vue';
 </script>

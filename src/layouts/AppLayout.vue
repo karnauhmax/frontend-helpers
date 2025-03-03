@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import TheHeader from '@/components/TheHeader.vue';
 
 const route = useRoute();
 </script>
 
 <template>
-  <TheHeader />
-  <component :is="route.meta.layoutComponent">
-    <slot />
-  </component>
+  <Transition name="route-transition" mode="out-in">
+    <component :is="route.meta.layoutComponent">
+      <slot />
+    </component>
+  </Transition>
 </template>

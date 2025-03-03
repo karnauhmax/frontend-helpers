@@ -1,10 +1,5 @@
-import { computed } from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { loadLayoutMiddleware } from './layoutMiddleware';
-import i18n from '@/i18n';
-import ClipPathGenerator from '@/components/clip-path-generator/ClipPathGenerator.vue';
-
-const { t } = i18n.global;
 
 const HomeView = () => import('../views/HomeView.vue');
 const GridBuilder = () => import('@/modules/grid-builder/views/GridBuilder.vue');
@@ -55,8 +50,9 @@ const router = createRouter({
       name: 'ClampCalculator',
       component: ClampCalculator,
       meta: {
-        title: computed((_) => t('clampCalculator.title')),
-        description: computed((_) => t('clampCalculator.description')),
+        title: 'CSS Clamp Calculator',
+        description:
+          'Easily calculate CSS clamp function to make your application responsive without any additional media queries!',
         layout: 'helper'
       }
     },
@@ -133,12 +129,6 @@ const router = createRouter({
           "Let's be honest, noone likes to create tailwind config manually. So do it easily and fast ",
         layout: 'helper'
       }
-    },
-
-    {
-      path: '/clip-path-generator',
-      name: 'clip-path-generator',
-      component: ClipPathGenerator
     },
 
     {

@@ -6,36 +6,33 @@ import { useImageOptimizer } from '../composables/useImageOptimiser';
 import BaseDropZone from '@/components/base/BaseDropZone.vue';
 import BaseRangeInput from '@/components/base/BaseRangeInput.vue';
 import BaseInput from '@/components/base/BaseInput.vue';
+import ImagePreview from '../components/ImagePreview.vue';
+import BaseButton from '@/components/base/BaseButton.vue';
 
 const selectedImageFormat = ref<ImageFormat>(ImageFormats.webp);
 const quality = ref(75);
 
-const { imageFormats, optimizeImage } = useImageOptimizer();
-const previewImages = ref([]);
+const { imageFormats, optimizeImage, previewImages, deleteImage, deleteAllPreviewImages } =
+  useImageOptimizer();
 
 async function onUpload(images: File[]) {
-  const formattedImages: ArrayBuffer[] = [];
-
   for (const image of images) {
-    const bufferImage = await image.arrayBuffer();
+    const newImage = await optimizeImage({
+      quality: quality.value,
+      image: image,
+      fileFormat: selectedImageFormat.value,
+      targetFormat: selectedImageFormat.value
+    });
 
-    formattedImages.push(bufferImage);
+    previewImages.value.push(newImage);
   }
-
-  const test = await optimizeImage({
-    quality: quality.value,
-    images: formattedImages,
-    format: selectedImageFormat.value
-  });
-
-  previewImages.value.push(test);
 }
 </script>
 
 <template>
   <div class="grid gap-y-8">
     <div>
-      <h3 class="font-medium text-lg mb-2">Image Format</h3>
+      <h3 class="font-light text-lg mb-2">Image Format</h3>
       <ul class="flex gap-4 uppercase mb-6">
         <li v-for="format in imageFormats" :key="format">
           <BaseRadioButton
@@ -50,12 +47,10 @@ async function onUpload(images: File[]) {
 
       <div class="grid gap-y-1">
         <p>Quality:</p>
-        <BaseRangeInput class="mb-2" v-model="quality" />
-        <BaseInput class="max-w-[100px]" type="number" v-model="quality" />
+        <BaseRangeInput class="mb-2" v-model.lazy="quality" />
+        <BaseInput max="100" min="0" class="max-w-[100px]" type="number" v-model="quality" />
       </div>
     </div>
-
-    <img v-for="image in previewImages" :key="image" :src="image" />
 
     <BaseDropZone
       title="Drop your image here or click to upload"
@@ -64,5 +59,49 @@ async function onUpload(images: File[]) {
       multiple
       @file-uploaded="onUpload"
     />
+
+    <Transition name="list-wrapper">
+      <div v-if="previewImages.length">
+        <TransitionGroup class="grid gap-y-4" name="list" tag="ul">
+          <li v-for="image in previewImages" :key="image.id">
+            <ImagePreview
+              :image="image.preview"
+              :old-size="image.oldSize"
+              :new-size="image.newSize"
+              :name="image.name"
+              @delete="deleteImage(image.id)"
+            />
+          </li>
+        </TransitionGroup>
+      </div>
+    </Transition>
+
+    <BaseButton @click="deleteAllPreviewImages" label="Clear all" />
   </div>
 </template>
+
+<style scoped lang="scss">
+.list {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.2s;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+.list-wrapper {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.2s;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+</style>

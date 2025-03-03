@@ -15,6 +15,14 @@ function onUpload(event: Event) {
   emits('file-uploaded', files);
 }
 
+function onClick(event: Event) {
+  if (!event.target) return;
+
+  const target = event.target as HTMLInputElement;
+
+  target.value = '';
+}
+
 const props = withDefaults(
   defineProps<{
     title: string;
@@ -73,6 +81,7 @@ onUnmounted(() => {
   >
     <input
       @input="onUpload"
+      @click="onClick"
       class="hidden"
       type="file"
       id="fileInput"
@@ -84,7 +93,7 @@ onUnmounted(() => {
       class="flex flex-col items-center justify-center h-full gap-y-2 cursor-pointer px-4"
       for="fileInput"
     >
-      <p class="font-medium sm:text-2xl text-xl">{{ props.title }}</p>
+      <p class="font-extralight sm:text-2xl text-xl">{{ props.title }}</p>
       <p class="text-md text-text-primary/50">
         {{ props.description }}
       </p>

@@ -29,9 +29,9 @@ module.exports = {
         400: '400ms'
       },
       fontFamily: {
-        main: ['DM Sans', 'Open Sans', 'Arial', 'sans-serif']
+        main: ['IBM Plex Sans', 'Open Sans', 'Arial', 'sans-serif']
       }
     }
   },
   plugins: []
-}
+};

@@ -11,6 +11,15 @@ export type ImageFormat = EnumValues<typeof ImageFormats>;
 
 export interface IImageOptimizerConfig {
   quality: number;
-  format: ImageFormat;
-  images: ArrayBuffer[];
+  fileFormat: ImageFormat;
+  targetFormat: ImageFormat;
+  image: File;
+}
+
+export interface IGeneratedImageResult {
+  name: string;
+  oldSize: number;
+  newSize: number;
+  preview: string;
+  id: number;
 }

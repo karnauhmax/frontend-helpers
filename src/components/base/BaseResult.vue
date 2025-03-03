@@ -13,16 +13,6 @@
     </div>
 
     <slot />
-
-    <div
-      class="text-primary transition-all text-sm px-2 py-1 absolute bottom-[-40px] backdrop-blur-m bg-gradient-to-b from-gray-700 to-dark"
-      :class="{
-        'opacity-1 visible': isCopied,
-        'opacity-0 invisible': !isCopied
-      }"
-    >
-      <p>Copied!</p>
-    </div>
   </div>
 </template>
 

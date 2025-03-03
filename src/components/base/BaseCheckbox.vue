@@ -1,11 +1,6 @@
 <template>
   <label class="checkbox-label relative flex items-center cursor-pointer">
-    <input
-      type="checkbox"
-      class="appearance-none peer"
-      v-model="model"
-      :value="value"
-    />
+    <input type="checkbox" class="appearance-none peer" v-model="model" :value="value" />
     <span class="checkbox-container" />
     <span>{{ label }}</span>
   </label>
@@ -15,7 +10,7 @@
 import { computed } from 'vue';
 
 const props = defineProps<{
-  modelValue: any[] | boolean;
+  modelValue: unknown[] | boolean;
   value: boolean | string | number;
   label: string;
 }>();
@@ -28,6 +23,6 @@ const model = computed({
   },
   set(value) {
     emit('update:modelValue', value);
-  },
+  }
 });
 </script>

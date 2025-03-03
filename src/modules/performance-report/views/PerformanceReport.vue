@@ -5,12 +5,12 @@
         @submit.prevent="generateHandler"
         :class="`grid gap-y-5 ${isProcessing ? 'disabled' : ''}`"
       >
-        <BaseInput v-model="url" :label="$t('performanceReport.url')" />
+        <BaseInput v-model="url" label="Performance Report" />
 
         <div class="flex gap-x-4">
           <BaseRadioButton
             v-model="deviceType"
-            :label="$t('performanceReport.mobile')"
+            label="Mobile"
             value="mobile"
             name="device-type"
             checked
@@ -18,13 +18,13 @@
           <BaseRadioButton
             v-model="deviceType"
             name="device-type"
-            :label="$t('performanceReport.desktop')"
+            label="Desktop"
             value="desktop"
           />
         </div>
 
         <BaseButton
-          :label="$t('global.generate')"
+          label="Generate"
           class="justify-self-start"
           type="submit"
           :disabled="isProcessing"
@@ -57,29 +57,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-import BaseInput from '@/components/base/BaseInput.vue'
-import BaseButton from '@/components/base/BaseButton.vue'
-import BaseLoader from '@/components/base/BaseLoader.vue'
-import BaseRadioButton from '@/components/base/BaseRadioButton.vue'
-import PerformanceReportMetric from '../components/PerformanceReportMetric.vue'
-import { usePerformanceReport } from '../composables/usePerformanceReport'
-import type { TDevice } from '../types'
+import BaseInput from '@/components/base/BaseInput.vue';
+import BaseButton from '@/components/base/BaseButton.vue';
+import BaseLoader from '@/components/base/BaseLoader.vue';
+import BaseRadioButton from '@/components/base/BaseRadioButton.vue';
+import PerformanceReportMetric from '../components/PerformanceReportMetric.vue';
+import { usePerformanceReport } from '../composables/usePerformanceReport';
+import type { TDevice } from '../types';
 
 const { performanceScore, generatePageSpeedReport, filteredMetrics, isProcessing } =
-  usePerformanceReport()
+  usePerformanceReport();
 
-const url = ref('https://alescalifetech.com/')
-const showReport = ref(false)
-const deviceType = ref<TDevice>('mobile')
+const url = ref('https://alescalifetech.com/');
+const showReport = ref(false);
+const deviceType = ref<TDevice>('mobile');
 
 const generateHandler = async (): Promise<void> => {
   try {
-    await generatePageSpeedReport(url.value, deviceType.value)
-    showReport.value = true
+    await generatePageSpeedReport(url.value, deviceType.value);
+    showReport.value = true;
   } catch {
-    showReport.value = false
+    showReport.value = false;
   }
-}
+};
 </script>
