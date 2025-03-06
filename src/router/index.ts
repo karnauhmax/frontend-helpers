@@ -1,35 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { loadLayoutMiddleware } from './layoutMiddleware';
 
-import HomeView from '@/views/HomeView.vue';
-import ImageOptimiserView from '@/modules/image-optimiser/views/ImageOptimiserView.vue';
-import GridBuilder from '@/modules/grid-builder/views/GridBuilder.vue';
-import REMConverter from '@/modules/rem-converter/views/REMConverter.vue';
-import ClampCalculator from '@/modules/clamp-calculator/views/ClampCalculator.vue';
-import CodeMinifier from '@/modules/code-minifier/views/CodeMinifier.vue';
-import GradientGenerator from '../components/gradient-generator/GradientGenerator.vue';
-import FontFaceGenerator from '@/modules/font-face-generator/views/FontFaceGenerator.vue';
-import TransformGenerator from '@/modules/transform-generator/views/TransformGenerator.vue';
-import PerformanceReport from '@/modules/performance-report/views/PerformanceReport.vue';
-import CSSUtilsGenerator from '../components/css-utils-generator/CSSUtilsGenerator.vue';
-import TailwindConfigGenerator from '@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue';
+const HomeView = () => import('@/views/HomeView.vue');
+const ImageOptimiserView = () => import('@/modules/image-optimiser/views/ImageOptimiserView.vue');
+const GridBuilder = () => import('@/modules/grid-builder/views/GridBuilder.vue');
+const REMConverter = () => import('@/modules/rem-converter/views/REMConverter.vue');
+const ClampCalculator = () => import('@/modules/clamp-calculator/views/ClampCalculator.vue');
+const CodeMinifier = () => import('@/modules/code-minifier/views/CodeMinifier.vue');
+const GradientGenerator = () => import('@/components/gradient-generator/GradientGenerator.vue');
+const FontFaceGenerator = () => import('@/modules/font-face-generator/views/FontFaceGenerator.vue');
+const TransformGenerator = () =>
+  import('@/modules/transform-generator/views/TransformGenerator.vue');
+const PerformanceReport = () => import('@/modules/performance-report/views/PerformanceReport.vue');
+const CSSUtilsGenerator = () => import('@/components/css-utils-generator/CSSUtilsGenerator.vue');
+const TailwindConfigGenerator = () =>
+  import('@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue');
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
+    { path: '/', name: 'home', component: HomeView },
     {
       path: '/grid-builder',
       name: 'GridBuilder',
       component: GridBuilder,
       meta: {
         title: 'Grid Builder',
-        description:
-          'Grid Builder allows you to create cards, shop products etc. layout using only one css property without any media queries! Check it out',
+        description: 'Create layouts without media queries!',
         layout: 'helper'
       }
     },
@@ -38,7 +35,7 @@ const router = createRouter({
       name: 'REMConverter',
       component: REMConverter,
       meta: {
-        title: 'PX to REM converter',
+        title: 'PX to REM Converter',
         description: 'Easily convert pixels to rems!',
         layout: 'helper'
       }
@@ -49,8 +46,7 @@ const router = createRouter({
       component: ClampCalculator,
       meta: {
         title: 'CSS Clamp Calculator',
-        description:
-          'Easily calculate CSS clamp function to make your application responsive without any additional media queries!',
+        description: 'Make your app responsive without media queries!',
         layout: 'helper'
       }
     },
@@ -60,7 +56,7 @@ const router = createRouter({
       component: CodeMinifier,
       meta: {
         title: 'Code Minifier',
-        description: "Easily minify JS, SCSS, CSS, GraphQL code in one click! That's it!",
+        description: 'Minify JS, SCSS, CSS, and GraphQL in one click!',
         layout: 'helper'
       }
     },
@@ -70,7 +66,7 @@ const router = createRouter({
       component: GradientGenerator,
       meta: {
         title: 'Gradient Generator',
-        description: 'Generate your wonderful gradient in a few clicks!',
+        description: 'Generate beautiful gradients in a few clicks!',
         layout: 'helper'
       }
     },
@@ -80,8 +76,7 @@ const router = createRouter({
       component: FontFaceGenerator,
       meta: {
         title: 'Font-Face Generator',
-        description:
-          'Get rid of the tedious manual prescribing of Font Face and do everything in two clicks (or maybe more than two)',
+        description: 'Generate @font-face CSS easily!',
         layout: 'helper'
       }
     },
@@ -91,7 +86,7 @@ const router = createRouter({
       component: TransformGenerator,
       meta: {
         title: 'Transform Generator',
-        description: "I don't know what to say. Transform generator :p",
+        description: 'CSS transform property helper',
         layout: 'helper'
       }
     },
@@ -101,7 +96,7 @@ const router = createRouter({
       component: PerformanceReport,
       meta: {
         title: 'Performance Report',
-        description: 'Test your website performance based on Pagespeed',
+        description: 'Test your website performance with Pagespeed',
         layout: 'helper'
       }
     },
@@ -111,7 +106,7 @@ const router = createRouter({
       component: CSSUtilsGenerator,
       meta: {
         title: 'CSS Utils Generator',
-        description: 'Generate CSS Utils easily',
+        description: 'Easily generate CSS utilities',
         layout: 'helper'
       }
     },
@@ -121,23 +116,21 @@ const router = createRouter({
       component: TailwindConfigGenerator,
       meta: {
         title: 'Tailwind Config Generator',
-        description:
-          "Let's be honest, noone likes to create tailwind config manually. So do it easily and fast ",
+        description: 'Quickly generate a Tailwind config!',
         layout: 'helper'
       }
     },
     {
       path: '/image-optimiser',
-      name: 'image-optimiser',
+      name: 'ImageOptimiser',
       component: ImageOptimiserView,
       meta: {
         title: 'Image Optimiser',
-        description: 'Compress and convert your images to AVIF, JPEG, PNG, or WebP.',
+        description: 'Compress and convert images to AVIF, JPEG, PNG, or WebP.',
         layout: 'helper'
       }
     }
   ],
-
   scrollBehavior() {
     return { top: 0 };
   }
