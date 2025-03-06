@@ -1,11 +1,12 @@
+import HelperLayout from '@/layouts/HelperLayout.vue';
+import AppLayoutDefault from '@/layouts/AppLayoutDefault.vue';
+
 export enum AppLayoutsEnum {
   default = 'default',
-  helper = 'helper',
-  error = 'error'
+  helper = 'helper'
 }
 
-export const AppLayoutToFileMap: Record<AppLayoutsEnum, string> = {
-  default: 'AppLayoutDefault.vue',
-  helper: 'HelperLayout.vue',
-  error: 'AppLayoutError.vue'
-}
+export const AppLayoutToFileMap: Record<AppLayoutsEnum, any> = {
+  default: HelperLayout,
+  helper: AppLayoutDefault
+};

@@ -3,19 +3,16 @@ import { loadLayoutMiddleware } from './layoutMiddleware';
 
 import HomeView from '@/views/HomeView.vue';
 import ImageOptimiserView from '@/modules/image-optimiser/views/ImageOptimiserView.vue';
-
-const GridBuilder = () => import('@/modules/grid-builder/views/GridBuilder.vue');
-const REMConverter = () => import('@/modules/rem-converter/views/REMConverter.vue');
-const ClampCalculator = () => import('@/modules/clamp-calculator/views/ClampCalculator.vue');
-const CodeMinifier = () => import('@/modules/code-minifier/views/CodeMinifier.vue');
-const GradientGenerator = () => import('../components/gradient-generator/GradientGenerator.vue');
-const FontFaceGenerator = () => import('@/modules/font-face-generator/views/FontFaceGenerator.vue');
-const TransformGenerator = () =>
-  import('@/modules/transform-generator/views/TransformGenerator.vue');
-const PerformanceReport = () => import('@/modules/performance-report/views/PerformanceReport.vue');
-const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUtilsGenerator.vue');
-const TailwindConfigGenerator = () =>
-  import('@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue');
+import GridBuilder from '@/modules/grid-builder/views/GridBuilder.vue';
+import REMConverter from '@/modules/rem-converter/views/REMConverter.vue';
+import ClampCalculator from '@/modules/clamp-calculator/views/ClampCalculator.vue';
+import CodeMinifier from '@/modules/code-minifier/views/CodeMinifier.vue';
+import GradientGenerator from '../components/gradient-generator/GradientGenerator.vue';
+import FontFaceGenerator from '@/modules/font-face-generator/views/FontFaceGenerator.vue';
+import TransformGenerator from '@/modules/transform-generator/views/TransformGenerator.vue';
+import PerformanceReport from '@/modules/performance-report/views/PerformanceReport.vue';
+import CSSUtilsGenerator from '../components/css-utils-generator/CSSUtilsGenerator.vue';
+import TailwindConfigGenerator from '@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -108,7 +105,6 @@ const router = createRouter({
         layout: 'helper'
       }
     },
-
     {
       path: '/css-utils-generator',
       name: 'CSSUtilsGenerator',
@@ -119,7 +115,6 @@ const router = createRouter({
         layout: 'helper'
       }
     },
-
     {
       path: '/tailwind-config-generator',
       name: 'TailwindConfigGenerator',
@@ -131,7 +126,6 @@ const router = createRouter({
         layout: 'helper'
       }
     },
-
     {
       path: '/image-optimiser',
       name: 'image-optimiser',
