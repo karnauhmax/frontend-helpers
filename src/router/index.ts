@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { loadLayoutMiddleware } from './layoutMiddleware';
 
-const HomeView = () => import('../views/HomeView.vue');
+import HomeView from '@/views/HomeView.vue';
+import ImageOptimiserView from '@/modules/image-optimiser/views/ImageOptimiserView.vue';
+
 const GridBuilder = () => import('@/modules/grid-builder/views/GridBuilder.vue');
 const REMConverter = () => import('@/modules/rem-converter/views/REMConverter.vue');
 const ClampCalculator = () => import('@/modules/clamp-calculator/views/ClampCalculator.vue');
@@ -15,7 +17,6 @@ const CSSUtilsGenerator = () => import('../components/css-utils-generator/CSSUti
 const TailwindConfigGenerator = () =>
   import('@/modules/tailwind-config-generator/views/TailwindConfigGenerator.vue');
 
-const ImageOptimiser = () => import('@/modules/image-optimiser/views/ImageOptimiserView.vue');
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -134,7 +135,7 @@ const router = createRouter({
     {
       path: '/image-optimiser',
       name: 'image-optimiser',
-      component: ImageOptimiser,
+      component: ImageOptimiserView,
       meta: {
         title: 'Image Optimiser',
         description: 'Compress and convert your images to AVIF, JPEG, PNG, or WebP.',
