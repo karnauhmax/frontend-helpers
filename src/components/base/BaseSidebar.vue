@@ -12,12 +12,12 @@
       @click="toggleSidebar"
       class="from-gray-700 to-dark bg-gradient-to-b rounded-bl-sm rounded-tl-sm w-[25px] h-[50px] grid place-items-center lg:hidden"
     >
-      <ArrowLeft
-        :class="{
-          'rotate-180': isSidebarExpanded
-        }"
-        :size="18"
-      />
+      <!--      <ArrowLeft-->
+      <!--        :class="{-->
+      <!--          'rotate-180': isSidebarExpanded-->
+      <!--        }"-->
+      <!--        :size="18"-->
+      <!--      />-->
     </button>
     <aside
       class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/40 to-dark self-start items-start h-full lg:w-full overflow-auto"
@@ -45,7 +45,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
 import { RouterLink } from 'vue-router';
 import { useClickOutside } from '@/composables/useClickOutside';
 import { helpersList } from '@/constants';

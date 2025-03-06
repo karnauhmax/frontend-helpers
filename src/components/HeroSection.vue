@@ -9,10 +9,6 @@
         <p class="text-text-secondary font-extralight text-xl">Well, or almost all of them :D</p>
       </div>
     </div>
-    <ArrowDown class="absolute right-1 bottom-20" />
+    <v-icon name="bi-arrow-down-short" class="absolute right-1 bottom-20" scale="2" />
   </section>
 </template>
-
-<script setup lang="ts">
-import ArrowDown from 'vue-material-design-icons/ArrowDown.vue';
-</script>

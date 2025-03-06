@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import TrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue';
-import TrayArrowDown from 'vue-material-design-icons/TrayArrowDown.vue';
 import { computed } from 'vue';
 import { useImageOptimizer } from '@/modules/image-optimiser/composables/useImageOptimiser';
 
@@ -32,18 +30,18 @@ const formattedSize = computed(() => {
     <div class="flex gap-x-3 self-start">
       <button
         @click="emits('delete')"
-        class="hover:opacity-85 transition-opacity"
+        class="hover:opacity-85 transition-opacity text-text-primary"
         aria-label="Delete this image"
       >
-        <TrashCanOutline />
+        <v-icon fill="#fff" name="bi-trash" scale="1.1" />
       </button>
 
       <button
         @click="emits('download')"
-        class="hover:opacity-85 transition-opacity"
+        class="hover:opacity-85 transition-opacity text-text-primary"
         aria-label="Download this image"
       >
-        <TrayArrowDown />
+        <v-icon fill="#fff" name="co-cloud-download" scale="1.1" />
       </button>
     </div>
   </div>
