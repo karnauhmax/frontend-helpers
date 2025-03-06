@@ -6,9 +6,15 @@ import router from './router';
 import './assets/base.scss';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import { CoCloudDownload, BiTrash, CoCopy, BiArrowDownShort } from 'oh-vue-icons/icons';
+import {
+  CoCloudDownload,
+  BiTrash,
+  CoCopy,
+  BiArrowDownShort,
+  BiArrowLeftCircle
+} from 'oh-vue-icons/icons';
 
-addIcons(CoCopy, CoCloudDownload, BiTrash, BiArrowDownShort);
+addIcons(CoCopy, CoCloudDownload, BiTrash, BiArrowDownShort, BiArrowLeftCircle);
 
 const app = createApp(App);
 

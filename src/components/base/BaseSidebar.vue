@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed right-0 h-full top-[var(--header-height)] z-10 transition-transform lg:transform-none lg:sticky lg:top-[20px] lg:h-auto flex items-center overflow-y-auto"
+    class="fixed right-0 top-0 h-full z-10 transition-transform lg:transform-none lg:sticky lg:top-[20px] lg:h-auto flex items-center overflow-y-auto"
     ref="sidebar"
     :class="{
       'translate-x-0': isSidebarExpanded,
@@ -18,6 +18,13 @@
       <!--        }"-->
       <!--        :size="18"-->
       <!--      />-->
+
+      <v-icon
+        name="bi-arrow-left-circle"
+        :class="{
+          'rotate-180': isSidebarExpanded
+        }"
+      />
     </button>
     <aside
       class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/40 to-dark self-start items-start h-full lg:w-full overflow-auto"
