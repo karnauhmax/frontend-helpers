@@ -12,15 +12,24 @@ import BaseButton from '@/components/base/BaseButton.vue';
 const selectedImageFormat = ref<ImageFormat>(ImageFormats.webp);
 const quality = ref(75);
 
-const { imageFormats, optimizeImage, previewImages, deleteImage, deleteAllPreviewImages } =
-  useImageOptimizer();
+const {
+  imageFormats,
+  optimizeImage,
+  previewImages,
+  deleteImage,
+  downloadImage,
+  deleteAllPreviewImages,
+  downloadAllImages
+} = useImageOptimizer();
 
 async function onUpload(images: File[]) {
   for (const image of images) {
+    const fileFormat = image.type.split('/')[1] as ImageFormat;
+
     const newImage = await optimizeImage({
       quality: quality.value,
       image: image,
-      fileFormat: selectedImageFormat.value,
+      fileFormat: fileFormat,
       targetFormat: selectedImageFormat.value
     });
 
@@ -70,13 +79,15 @@ async function onUpload(images: File[]) {
               :new-size="image.newSize"
               :name="image.name"
               @delete="deleteImage(image.id)"
+              @download="downloadImage(image.id)"
             />
           </li>
         </TransitionGroup>
       </div>
     </Transition>
 
-    <BaseButton @click="deleteAllPreviewImages" label="Clear all" />
+    <BaseButton @click="downloadAllImages" label="Download All Images" />
+    <BaseButton variant="secondary" @click="deleteAllPreviewImages" label="Clear all" />
   </div>
 </template>
 

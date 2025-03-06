@@ -20,7 +20,7 @@
       />
     </button>
     <aside
-      class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/50 to-dark self-start items-start h-full lg:w-full overflow-auto"
+      class="rounded-md bg-gradient-to-b from-gray-700 lg:from-gray-700/40 to-dark self-start items-start h-full lg:w-full overflow-auto"
     >
       <div class="px-5 py-2 border-b border-text-secondary/10">
         <p class="text-center font-regular">Other Helpers</p>

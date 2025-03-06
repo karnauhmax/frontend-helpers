@@ -4,7 +4,8 @@ export const ImageFormats = {
   jpg: 'jpg',
   png: 'png',
   webp: 'webp',
-  avif: 'avif'
+  avif: 'avif',
+  jpeg: 'jpeg'
 } as const;
 
 export type ImageFormat = EnumValues<typeof ImageFormats>;
