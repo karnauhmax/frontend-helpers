@@ -57,7 +57,14 @@ async function onUpload(images: File[]) {
       <div class="grid gap-y-1">
         <p>Quality:</p>
         <BaseRangeInput class="mb-2" v-model.lazy="quality" />
-        <BaseInput max="100" min="0" class="max-w-[100px]" type="number" v-model="quality" />
+        <BaseInput
+          disabled
+          max="100"
+          min="0"
+          class="max-w-[100px]"
+          type="number"
+          v-model="quality"
+        />
       </div>
     </div>
 

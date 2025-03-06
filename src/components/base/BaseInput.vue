@@ -3,7 +3,7 @@
     <span v-if="label">{{ label }}</span>
 
     <input
-      :class="`text-secondary w-full bg-dark border p-2 focus:outline-none focus:border2 focus:border-primary pr-8 ${
+      :class="`text-secondary w-full bg-dark border p-2 disabled:pointer-events-none focus:outline-none focus:border2 focus:border-primary pr-8 ${
         isValid ? 'border-primary' : 'border-red-500/100'
       }`"
       v-model="model"
