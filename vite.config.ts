@@ -25,5 +25,9 @@ export default defineConfig({
       '@layouts': path.resolve(__dirname, './src/layouts'),
       '@locales': path.resolve(__dirname, './src/locales')
     }
+  },
+
+  worker: {
+    format: 'es'
   }
 });
