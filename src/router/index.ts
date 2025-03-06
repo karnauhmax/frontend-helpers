@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import { loadLayoutMiddleware } from './layoutMiddleware';
 
 const HomeView = () => import('../views/HomeView.vue');
@@ -17,7 +17,7 @@ const TailwindConfigGenerator = () =>
 
 const ImageOptimiser = () => import('@/modules/image-optimiser/views/ImageOptimiserView.vue');
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
