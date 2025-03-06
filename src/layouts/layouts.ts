@@ -7,6 +7,6 @@ export enum AppLayoutsEnum {
 }
 
 export const AppLayoutToFileMap: Record<AppLayoutsEnum, any> = {
-  default: HelperLayout,
-  helper: AppLayoutDefault
+  default: AppLayoutDefault,
+  helper: HelperLayout
 };
