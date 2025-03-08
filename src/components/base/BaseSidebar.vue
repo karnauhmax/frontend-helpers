@@ -12,13 +12,6 @@
       @click="toggleSidebar"
       class="from-gray-700 to-dark bg-gradient-to-b rounded-bl-sm rounded-tl-sm w-[25px] h-[50px] grid place-items-center lg:hidden"
     >
-      <!--      <ArrowLeft-->
-      <!--        :class="{-->
-      <!--          'rotate-180': isSidebarExpanded-->
-      <!--        }"-->
-      <!--        :size="18"-->
-      <!--      />-->
-
       <v-icon
         name="bi-arrow-left-circle"
         :class="{

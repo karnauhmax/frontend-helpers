@@ -18,7 +18,7 @@ const {
   previewImages,
   deleteImage,
   downloadImage,
-  deleteAllPreviewImages,
+  deleteAllImages,
   downloadAllImages
 } = useImageOptimizer();
 
@@ -26,14 +26,18 @@ async function onUpload(images: File[]) {
   for (const image of images) {
     const fileFormat = image.type.split('/')[1] as ImageFormat;
 
-    const newImage = await optimizeImage({
-      quality: quality.value,
-      image: image,
-      fileFormat: fileFormat,
-      targetFormat: selectedImageFormat.value
-    });
+    try {
+      const newImage = await optimizeImage({
+        quality: quality.value,
+        image: image,
+        fileFormat: fileFormat,
+        targetFormat: selectedImageFormat.value
+      });
 
-    previewImages.value.push(newImage);
+      previewImages.value.push(newImage);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 </script>
@@ -94,7 +98,7 @@ async function onUpload(images: File[]) {
     </Transition>
 
     <BaseButton @click="downloadAllImages" label="Download All Images" />
-    <BaseButton variant="secondary" @click="deleteAllPreviewImages" label="Clear all" />
+    <BaseButton variant="secondary" @click="deleteAllImages" label="Clear all" />
   </div>
 </template>
 

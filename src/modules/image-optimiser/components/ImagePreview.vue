@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useImageOptimizer } from '@/modules/image-optimiser/composables/useImageOptimiser';
+import { useImageOptimizer } from '../composables/useImageOptimiser';
 
 const emits = defineEmits(['download', 'delete']);
 const { formatFileSize } = useImageOptimizer();

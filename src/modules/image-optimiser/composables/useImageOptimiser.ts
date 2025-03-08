@@ -19,7 +19,7 @@ function deleteImage(id: number) {
   previewImages.value = previewImages.value.filter((image) => image.id !== id);
 }
 
-function deleteAllPreviewImages() {
+function deleteAllImages() {
   previewImages.value = [];
 }
 
@@ -111,7 +111,7 @@ export function useImageOptimizer() {
     deleteImage,
     downloadImage,
     downloadAllImages,
-    deleteAllPreviewImages,
+    deleteAllImages,
     formatFileSize
   };
 }
