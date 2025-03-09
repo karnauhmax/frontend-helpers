@@ -14,6 +14,8 @@ const IMAGE_FORMATS: ImageFormat[] = [
   ImageFormats.avif
 ];
 
+const moduleCache = new Map<ImageFormat, TImageCodecModule>();
+
 const previewImages = ref<IGeneratedImageResult[]>([]);
 
 function deleteImage(id: number) {
@@ -24,7 +26,9 @@ function deleteAllImages() {
   previewImages.value = [];
 }
 
-const moduleCache = new Map<ImageFormat, TImageCodecModule>();
+function getImageFormat(image: File) {
+  return image.type.split('/')[1] as ImageFormat;
+}
 
 async function getImageFormatPackage(fileFormat: ImageFormat, targetFormat: ImageFormat) {
   async function getModule(format: ImageFormat) {
@@ -113,7 +117,7 @@ async function optimizeImage(config: IImageOptimizerConfig): Promise<IGeneratedI
   return result;
 }
 
-export function formatFileSize(bytes: number): string {
+export function formatImageSize(bytes: number): string {
   if (bytes === 0) return '0 B';
   const k = 1024;
   const sizes = ['B', 'KB', 'MB', 'GB'];
@@ -130,6 +134,7 @@ export function useImageOptimizer() {
     downloadImage,
     downloadAllImages,
     deleteAllImages,
-    formatFileSize
+    getImageFormat,
+    formatImageSize
   };
 }

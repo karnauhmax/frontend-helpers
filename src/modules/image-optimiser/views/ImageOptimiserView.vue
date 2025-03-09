@@ -19,12 +19,13 @@ const {
   deleteImage,
   downloadImage,
   deleteAllImages,
-  downloadAllImages
+  downloadAllImages,
+  getImageFormat
 } = useImageOptimizer();
 
 async function onUpload(images: File[]) {
   for (const image of images) {
-    const fileFormat = image.type.split('/')[1] as ImageFormat;
+    const fileFormat = getImageFormat(image);
 
     try {
       const newImage = await optimizeImage({

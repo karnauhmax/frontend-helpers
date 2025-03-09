@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useImageOptimizer } from '../composables/useImageOptimiser';
 
 const emits = defineEmits(['download', 'delete']);
-const { formatFileSize } = useImageOptimizer();
+const { formatImageSize } = useImageOptimizer();
 
 const props = defineProps<{
   name: string;
@@ -13,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const formattedSize = computed(() => {
-  return `${formatFileSize(props.oldSize)} -> ${formatFileSize(props.newSize)}`;
+  return `${formatImageSize(props.oldSize)} -> ${formatImageSize(props.newSize)}`;
 });
 </script>
 
