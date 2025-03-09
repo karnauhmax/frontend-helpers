@@ -13,7 +13,7 @@ const selectedImageFormat = ref<ImageFormat>(ImageFormats.webp);
 const quality = ref(75);
 
 const {
-  imageFormats,
+  IMAGE_FORMATS,
   optimizeImage,
   previewImages,
   deleteImage,
@@ -47,7 +47,7 @@ async function onUpload(images: File[]) {
     <div>
       <h3 class="font-light text-lg mb-2">Image Format</h3>
       <ul class="flex gap-4 uppercase mb-6">
-        <li v-for="format in imageFormats" :key="format">
+        <li v-for="format in IMAGE_FORMATS" :key="format">
           <BaseRadioButton
             :value="format"
             v-model="selectedImageFormat"
@@ -74,7 +74,7 @@ async function onUpload(images: File[]) {
 
     <BaseDropZone
       title="Drop your image here or click to upload"
-      :description="`Supports ${imageFormats.join(', ')}`"
+      :description="`Supports ${IMAGE_FORMATS.join(', ')}`"
       accept="image/*"
       multiple
       @file-uploaded="onUpload"

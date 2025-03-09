@@ -2,11 +2,12 @@ import {
   ImageFormats,
   type IGeneratedImageResult,
   type IImageOptimizerConfig,
-  type ImageFormat
+  type ImageFormat,
+  type TImageCodecModule
 } from '../types';
 import { ref } from 'vue';
 
-const imageFormats: ImageFormat[] = [
+const IMAGE_FORMATS: ImageFormat[] = [
   ImageFormats.jpg,
   ImageFormats.png,
   ImageFormats.webp,
@@ -23,7 +24,7 @@ function deleteAllImages() {
   previewImages.value = [];
 }
 
-const moduleCache = new Map<ImageFormat, unknown>();
+const moduleCache = new Map<ImageFormat, TImageCodecModule>();
 
 async function getImageFormatPackage(fileFormat: ImageFormat, targetFormat: ImageFormat) {
   async function getModule(format: ImageFormat) {
@@ -60,10 +61,8 @@ async function getImageFormatPackage(fileFormat: ImageFormat, targetFormat: Imag
   ]);
 
   return {
-    // @ts-expect-error Type of import is unkown
-    decode: sourceModule.decode,
-    // @ts-expect-error Type of import is unkown
-    encode: targetModule.encode
+    decode: sourceModule!.decode,
+    encode: targetModule!.encode
   };
 }
 
@@ -124,7 +123,7 @@ export function formatFileSize(bytes: number): string {
 
 export function useImageOptimizer() {
   return {
-    imageFormats,
+    IMAGE_FORMATS,
     optimizeImage,
     previewImages,
     deleteImage,

@@ -24,3 +24,5 @@ export interface IGeneratedImageResult {
   preview: string;
   id: number;
 }
+
+export type TImageCodecModule = typeof import('@jsquash/jpeg');
