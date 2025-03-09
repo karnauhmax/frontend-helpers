@@ -103,8 +103,7 @@ async function optimizeImage(config: IImageOptimizerConfig): Promise<IGeneratedI
   const blob = new Blob([encodedImageBuffer], { type: `image/${config.targetFormat}` });
   const preview = URL.createObjectURL(blob);
 
-  const originalName = config.image.name;
-  const newName = originalName.replace(/\.[^.]+$/, `.${config.targetFormat}`);
+  const newName = config.image.name.replace(/\.[^.]+$/, `.${config.targetFormat}`);
 
   const result = {
     oldSize: config.image.size,
