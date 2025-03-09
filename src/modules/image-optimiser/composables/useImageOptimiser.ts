@@ -23,21 +23,35 @@ function deleteAllImages() {
   previewImages.value = [];
 }
 
+const moduleCache = new Map<ImageFormat, unknown>();
+
 async function getImageFormatPackage(fileFormat: ImageFormat, targetFormat: ImageFormat) {
   async function getModule(format: ImageFormat) {
+    if (moduleCache.has(format)) {
+      return moduleCache.get(format);
+    }
+
+    let module;
     switch (format) {
       case ImageFormats.jpg:
       case ImageFormats.jpeg:
-        return import('@jsquash/jpeg');
+        module = await import('@jsquash/jpeg');
+        break;
       case ImageFormats.png:
-        return import('@jsquash/png');
+        module = await import('@jsquash/png');
+        break;
       case ImageFormats.webp:
-        return import('@jsquash/webp');
+        module = await import('@jsquash/webp');
+        break;
       case ImageFormats.avif:
-        return import('@jsquash/avif');
+        module = await import('@jsquash/avif');
+        break;
       default:
         throw new Error(`Unsupported image format: ${format}`);
     }
+
+    moduleCache.set(format, module);
+    return module;
   }
 
   const [sourceModule, targetModule] = await Promise.all([
@@ -46,7 +60,9 @@ async function getImageFormatPackage(fileFormat: ImageFormat, targetFormat: Imag
   ]);
 
   return {
+    // @ts-expect-error Type of import is unkown
     decode: sourceModule.decode,
+    // @ts-expect-error Type of import is unkown
     encode: targetModule.encode
   };
 }
@@ -84,10 +100,13 @@ async function optimizeImage(config: IImageOptimizerConfig): Promise<IGeneratedI
   const blob = new Blob([encodedImageBuffer], { type: `image/${config.targetFormat}` });
   const preview = URL.createObjectURL(blob);
 
+  const originalName = config.image.name;
+  const newName = originalName.replace(/\.[^.]+$/, `.${config.targetFormat}`);
+
   const result = {
     oldSize: config.image.size,
     newSize: blob.size,
-    name: config.image.name,
+    name: newName,
     preview,
     id: Date.now()
   };
