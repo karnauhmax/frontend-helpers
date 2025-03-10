@@ -98,10 +98,17 @@ async function onUpload(images: File[]) {
       </div>
     </Transition>
 
-    <template v-if="previewImages.length">
-      <BaseButton @click="downloadAllImages" label="Download All Images" />
-      <BaseButton variant="secondary" @click="deleteAllImages" label="Clear all" />
-    </template>
+    <BaseButton
+      v-show="previewImages.length"
+      @click="downloadAllImages"
+      label="Download All Images"
+    />
+    <BaseButton
+      v-show="previewImages.length"
+      variant="secondary"
+      @click="deleteAllImages"
+      label="Clear all"
+    />
   </div>
 </template>
 
