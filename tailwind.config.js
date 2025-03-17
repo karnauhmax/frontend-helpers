@@ -16,6 +16,7 @@ module.exports = {
       colors: {
         primary: 'var(--primary-color)',
         dark: 'var(--dark-color)',
+        error: 'red',
         'text-secondary': 'rgba(235, 235, 235, .6)',
         'text-primary': 'rgba(255, 255, 255, .87)',
         'score-high': '#42b883',

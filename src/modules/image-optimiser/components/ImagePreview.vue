@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useImageOptimizer } from '../composables/useImageOptimiser';
+import { ImageStatuses, type ImageStatus } from '../types';
 
 const emits = defineEmits(['download', 'delete']);
 const { formatImageSize } = useImageOptimizer();
@@ -10,7 +11,16 @@ const props = defineProps<{
   image: string;
   oldSize: number;
   newSize: number;
+  status: ImageStatus;
 }>();
+
+const isError = computed(() => {
+  return props.status === ImageStatuses.error;
+});
+
+const isPending = computed(() => {
+  return props.status === ImageStatuses.pending;
+});
 
 const formattedSize = computed(() => {
   return `${formatImageSize(props.oldSize)} -> ${formatImageSize(props.newSize)}`;
@@ -20,11 +30,18 @@ const formattedSize = computed(() => {
 <template>
   <div
     class="grid grid-cols-[auto_1fr_min-content] border-dashed border border-text-primary items-center gap-4 p-4"
+    :class="{
+      'border-error': isError
+    }"
   >
-    <img width="60" height="60" :src="props.image" :alt="props.name" />
+    <img v-if="!isPending" width="60" height="60" :src="props.image" :alt="props.name" />
     <div class="grid gap-y-2">
       <p>{{ props.name }}</p>
-      <p>{{ formattedSize }}</p>
+
+      <p v-if="isPending">Processing...</p>
+      <p v-else-if="isError">Error happened while processing</p>
+
+      <p v-else>{{ formattedSize }}</p>
     </div>
 
     <div class="flex gap-x-3 self-start">

@@ -1,8 +1,11 @@
+import { generateId } from '@/helpers/generateId';
 import {
   ImageFormats,
+  ImageStatuses,
   type IGeneratedImageResult,
-  type IImageOptimizerConfig,
+  type IImage,
   type ImageFormat,
+  type IUploadConfig,
   type TImageCodecModule
 } from '../types';
 import { ref } from 'vue';
@@ -18,7 +21,7 @@ const moduleCache = new Map<ImageFormat, TImageCodecModule>();
 
 const previewImages = ref<IGeneratedImageResult[]>([]);
 
-function deleteImage(id: number) {
+function deleteImage(id: string) {
   previewImages.value = previewImages.value.filter((image) => image.id !== id);
 }
 
@@ -70,13 +73,13 @@ async function getImageFormatPackage(fileFormat: ImageFormat, targetFormat: Imag
   };
 }
 
-function downloadImage(imageId: number) {
+function downloadImage(imageId: string) {
   const link = document.createElement('a');
 
   const image = previewImages.value.find((image) => image.id === imageId);
 
   if (image) {
-    link.href = image.preview;
+    link.href = image.result;
     link.download = image.name;
     document.body.appendChild(link);
     link.click();
@@ -90,38 +93,73 @@ function downloadAllImages() {
   });
 }
 
-async function optimizeImage(config: IImageOptimizerConfig): Promise<IGeneratedImageResult> {
+async function onUpload(config: IUploadConfig) {
+  const { images, quality, targetFormat } = config;
+
+  for (const image of images) {
+    const fileFormat = getImageFormat(image);
+
+    try {
+      await optimizeImage({
+        quality: quality,
+        image: image,
+        fileFormat: fileFormat,
+        targetFormat: targetFormat,
+        name: image.name
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+async function optimizeImage(config: IImage) {
   const { encode, decode } = await getImageFormatPackage(config.fileFormat, config.targetFormat);
-
   const imageBuffer = await config.image.arrayBuffer();
-  const decodedImage = await decode(imageBuffer);
 
-  const encodedImageBuffer = await encode(decodedImage, {
-    quality: config.quality
-  });
+  const previewBlob = new Blob([imageBuffer], { type: `image/${config.fileFormat}` });
+  const previewImage = URL.createObjectURL(previewBlob);
 
-  const blob = new Blob([encodedImageBuffer], { type: `image/${config.targetFormat}` });
-  const preview = URL.createObjectURL(blob);
-
-  const newName = config.image.name.replace(/\.[^.]+$/, `.${config.targetFormat}`);
-
-  const result = {
+  const result: IGeneratedImageResult = {
     oldSize: config.image.size,
-    newSize: blob.size,
-    name: newName,
-    preview,
-    id: Date.now()
+    name: config.name,
+    newSize: 0,
+    preview: previewImage,
+    result: '',
+    status: ImageStatuses.pending,
+    id: generateId()
   };
 
-  return result;
+  previewImages.value.push(result);
+
+  const index = previewImages.value.findIndex((image) => image.id === result.id);
+
+  try {
+    const decodedImage = await decode(imageBuffer);
+    const encodedImageBuffer = await encode(decodedImage, { quality: config.quality });
+    const resultBlob = new Blob([encodedImageBuffer], { type: `image/${config.targetFormat}` });
+
+    previewImages.value[index] = {
+      ...result,
+      name: config.image.name.replace(/\.[^.]+$/, `.${config.targetFormat}`),
+      newSize: resultBlob.size,
+      preview: previewImage,
+      result: URL.createObjectURL(resultBlob),
+      status: ImageStatuses.success
+    };
+
+    return previewImages.value[index];
+  } catch {
+    previewImages.value[index].status = 'error';
+  }
 }
 
 export function formatImageSize(bytes: number): string {
   if (bytes === 0) return '0 B';
-  const k = 1024;
-  const sizes = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  const kilobyte = 1024;
+  const sizeUnits = ['B', 'KB', 'MB', 'GB'];
+  const index = Math.floor(Math.log(bytes) / Math.log(kilobyte));
+  return `${parseFloat((bytes / Math.pow(kilobyte, index)).toFixed(2))} ${sizeUnits[index]}`;
 }
 
 export function useImageOptimizer() {
@@ -134,6 +172,7 @@ export function useImageOptimizer() {
     downloadAllImages,
     deleteAllImages,
     getImageFormat,
-    formatImageSize
+    formatImageSize,
+    onUpload
   };
 }

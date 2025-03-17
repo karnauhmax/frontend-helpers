@@ -16,7 +16,7 @@
       units
     }}</span>
 
-    <span v-if="!isValid && errorMessage" class="text-sm text-red-500">
+    <span v-if="!isValid && errorMessage" class="text-sm text-error">
       {{ errorMessage }}
     </span>
   </label>

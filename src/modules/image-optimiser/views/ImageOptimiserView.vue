@@ -10,36 +10,24 @@ import ImagePreview from '../components/ImagePreview.vue';
 import BaseButton from '@/components/base/BaseButton.vue';
 
 const selectedImageFormat = ref<ImageFormat>(ImageFormats.webp);
-const quality = ref(75);
+const quality = ref(100);
 
 const {
   IMAGE_FORMATS,
-  optimizeImage,
   previewImages,
   deleteImage,
   downloadImage,
   deleteAllImages,
   downloadAllImages,
-  getImageFormat
+  onUpload
 } = useImageOptimizer();
 
-async function onUpload(images: File[]) {
-  for (const image of images) {
-    const fileFormat = getImageFormat(image);
-
-    try {
-      const newImage = await optimizeImage({
-        quality: quality.value,
-        image: image,
-        fileFormat: fileFormat,
-        targetFormat: selectedImageFormat.value
-      });
-
-      previewImages.value.push(newImage);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+function handleUpload(images: File[]) {
+  onUpload({
+    images,
+    quality: quality.value,
+    targetFormat: selectedImageFormat.value
+  });
 }
 </script>
 
@@ -78,7 +66,7 @@ async function onUpload(images: File[]) {
       :description="`Supports ${IMAGE_FORMATS.join(', ')}`"
       accept="image/*"
       multiple
-      @file-uploaded="onUpload"
+      @file-uploaded="handleUpload"
     />
 
     <Transition name="list-wrapper">
@@ -86,10 +74,11 @@ async function onUpload(images: File[]) {
         <TransitionGroup class="grid gap-y-4" name="list" tag="ul">
           <li v-for="image in previewImages" :key="image.id">
             <ImagePreview
-              :image="image.preview"
+              :image="image.result"
               :old-size="image.oldSize"
               :new-size="image.newSize"
               :name="image.name"
+              :status="image.status"
               @delete="deleteImage(image.id)"
               @download="downloadImage(image.id)"
             />
