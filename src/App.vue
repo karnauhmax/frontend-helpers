@@ -6,10 +6,13 @@
       </Transition>
     </RouterView>
   </AppLayout>
+
+  <TheFooter />
 </template>
 
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
+import TheFooter from './components/TheFooter.vue';
 </script>
 
 <style lang="scss">

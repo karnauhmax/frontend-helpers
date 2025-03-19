@@ -1,5 +1,9 @@
+<script setup lang="ts">
+import BaseContainer from '@/components/base/BaseContainer.vue';
+</script>
+
 <template>
-  <div class="max-w-[1300px] mx-auto px-2 min-h-[inherit]">
+  <BaseContainer>
     <slot />
-  </div>
+  </BaseContainer>
 </template>
